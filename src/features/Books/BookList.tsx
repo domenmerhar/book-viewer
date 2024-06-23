@@ -1,5 +1,4 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import { Card } from "./Card";
 import { List } from "../../utils/List";
 import { useBooks } from "../../hooks/useBooks";
@@ -7,8 +6,6 @@ import toast from "react-hot-toast";
 import { SpinnerBig } from "../../utils/SpinnerBig";
 
 export const BookList = () => {
-  const navigate = useNavigate();
-
   const { books, error, isLoading } = useBooks();
 
   if (error) return toast.error("An error occurred");
@@ -23,7 +20,7 @@ export const BookList = () => {
           title={book.title}
           subTitle={book.authors[0].name}
           imageSource={book.formats["image/jpeg"]}
-          onClick={() => navigate(`/books/${book.id}`)}
+          to={`/books/${book.id}`}
         />
       </li>
     ));
