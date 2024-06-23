@@ -11,13 +11,12 @@ const MainDiv = styled.div`
 
   background-color: var(--gray-2);
   padding-top: 80px;
-
-  margin: 0 auto;
 `;
 
 const PageContent = styled.div`
   width: 90%;
   margin: 0 auto;
+  margin: 65px auto;
 `;
 
 export const Layout = () => {
