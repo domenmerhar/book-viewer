@@ -4,6 +4,7 @@ import { SpinnerBig } from "../utils/SpinnerBig";
 import { HeadingGradient } from "../utils/HeadingGradient";
 import styled from "styled-components";
 import { Holder } from "../utils/Holder";
+import { BookInfoCard } from "../features/BookDetails/BookInfoCard";
 
 const Row = styled.div`
   display: flex;
@@ -21,8 +22,6 @@ export const BookDetails = () => {
 
   if (isLoading) return <SpinnerBig loading={isLoading} />;
 
-  console.log(book);
-
   return (
     <>
       <HeadingGradient>{book?.title}</HeadingGradient>
@@ -31,7 +30,7 @@ export const BookDetails = () => {
           <Image src={book?.formats["image/jpeg"]} alt={book?.title} />
         </Holder>
 
-        <Holder width="370px">dummy</Holder>
+        <BookInfoCard book={book} />
       </Row>
     </>
   );
