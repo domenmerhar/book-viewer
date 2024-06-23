@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { Heading } from "../../utils/Heading";
 
 interface CardProps {
   imageSource?: string;
@@ -16,6 +17,7 @@ const StyledCard = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 16px;
 
   background-color: var(--gray-1);
 `;
@@ -35,8 +37,15 @@ export const Card: React.FC<CardProps> = ({
   return (
     <StyledCard>
       <StyledImage src={imageSource} alt={title} />
-      <p>{title}</p>
-      <p>{subTitle}</p>
+
+      <span>
+        <Heading as="h1" type="primary">
+          {title}
+        </Heading>
+        <Heading as="h2" type="secondary">
+          {subTitle}
+        </Heading>
+      </span>
     </StyledCard>
   );
 };
