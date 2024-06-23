@@ -5,14 +5,14 @@ interface HeadingProps {
   allignment?: "center" | "left";
   fontSize?: string;
   width?: string;
+  color?: string;
 }
 
 export const Heading = styled.h1<HeadingProps>`
-  color: var(--black);
-
   ${(props) => css`
     text-align: ${props.allignment || "left"};
     width: ${props.width || "auto"};
+    color: ${props.color || "var(--black)"};
   `}
 
   ${(props) =>
