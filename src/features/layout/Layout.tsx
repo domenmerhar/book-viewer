@@ -1,6 +1,7 @@
 import { Outlet } from "react-router-dom";
 import styled from "styled-components";
-import { Logo } from "./utils/Logo";
+import { Logo } from "../../utils/Logo";
+import { HiArchive } from "react-icons/hi";
 
 const StyledNavbar = styled.nav`
   background-color: var(--blue-3);
@@ -22,7 +23,7 @@ export const Layout = () => {
           <input type="text" placeholder="Author" />
         </div>
 
-        <p>icon</p>
+        <HiArchive size={"48px"} fill="white" />
       </StyledNavbar>
       <Outlet />
     </>
