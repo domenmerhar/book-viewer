@@ -110,25 +110,27 @@ export const BookInfoCard: React.FC<BookInfoCardProps> = ({ book }) => {
         </Column>
       </div>
 
-      <Row gap="12px">
-        <ButtonGradient>
-          <Flex>
-            <HiDownload size={24} />
-            Download
-          </Flex>
-        </ButtonGradient>
+      <div style={{ marginTop: "48px" }}>
+        <Row gap="12px">
+          <ButtonGradient>
+            <Flex>
+              <HiDownload size={24} />
+              Download
+            </Flex>
+          </ButtonGradient>
 
-        <ButtonGradient>
-          <Flex>
-            Add to
-            <Select>
-              <Option>Wishlist</Option>
-              <Option>Reading</Option>
-              <Option>Finished</Option>
-            </Select>
-          </Flex>
-        </ButtonGradient>
-      </Row>
+          <ButtonGradient>
+            <Flex>
+              Add to
+              <Select>
+                <Option>Wishlist</Option>
+                <Option>Reading</Option>
+                <Option>Finished</Option>
+              </Select>
+            </Flex>
+          </ButtonGradient>
+        </Row>
+      </div>
     </Holder>
   );
 };
