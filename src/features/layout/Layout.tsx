@@ -2,7 +2,7 @@ import { Outlet } from "react-router-dom";
 import styled from "styled-components";
 import { Navbar } from "./Navbar";
 
-const StyledResults = styled.div`
+const PageContent = styled.div`
   min-width: 100vh;
   min-height: 100vh;
 
@@ -10,15 +10,17 @@ const StyledResults = styled.div`
   max-height: 100%;
 
   background-color: var(--gray-2);
+  padding-top: 80px;
 `;
 
 export const Layout = () => {
   return (
     <>
       <Navbar />
-      <StyledResults>
+
+      <PageContent>
         <Outlet />
-      </StyledResults>
+      </PageContent>
     </>
   );
 };
