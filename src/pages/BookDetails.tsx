@@ -21,7 +21,7 @@ export const BookDetails = () => {
   return (
     <>
       <HeadingGradient>{book?.title}</HeadingGradient>
-      <Row>
+      <Row gap="64px" justifyContent="space-around">
         <Holder>
           <Image src={book?.formats["image/jpeg"]} alt={book?.title} />
         </Holder>
