@@ -4,6 +4,7 @@ import { Card } from "./Card";
 import { List } from "../../utils/List";
 import { useBooks } from "../../hooks/useBooks";
 import toast from "react-hot-toast";
+import { SpinnerBig } from "../../utils/SpinnerBig";
 
 export const BookList = () => {
   const navigate = useNavigate();
@@ -12,7 +13,7 @@ export const BookList = () => {
 
   if (error) return toast.error("An error occurred");
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <SpinnerBig loading={isLoading} size={250} />;
 
   const render: () => React.ReactNode[] = () =>
     books!.results.map((book) => (
