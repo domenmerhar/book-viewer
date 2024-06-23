@@ -13,7 +13,8 @@ const GlobalStyles = createGlobalStyle`
     }
 
     :root {
-
+        --black: #000000;
+        --white: #FFFFFF;
 
         --blue-0: #E7F5FF;
         --blue-3: #74C0FC;
@@ -33,8 +34,6 @@ const GlobalStyles = createGlobalStyle`
     body {
         background: linear-gradient(55deg, var(--blue-0), var(--blue-3));
     }
-
-
 `;
 
 export default GlobalStyles;
