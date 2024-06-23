@@ -15,7 +15,7 @@ const StyledList = styled.ul<StyledListProps>`
   list-style: none;
 
   display: grid;
-  justify-content: space-around;
+  justify-content: space-between;
   grid-template-columns: repeat(auto-fill, ${(props) => props.itemWidth}px);
   grid-row-gap: 64px;
 
