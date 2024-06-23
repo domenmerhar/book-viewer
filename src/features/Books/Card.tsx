@@ -28,6 +28,8 @@ const StyledCard = styled.button`
 
   transition: all 200ms ease-out;
 
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
   &:hover {
     background-color: var(--gray-3);
 
