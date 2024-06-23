@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 interface SpinnerBigProps {
   loading: boolean;
-  size: number;
+  size?: number;
 }
 
 const StyledSpinnerBig = styled.div`
@@ -16,7 +16,10 @@ const StyledSpinnerBig = styled.div`
   width: 100%;
 `;
 
-export const SpinnerBig: React.FC<SpinnerBigProps> = ({ loading, size }) => {
+export const SpinnerBig: React.FC<SpinnerBigProps> = ({
+  loading,
+  size = 250,
+}) => {
   return (
     <StyledSpinnerBig>
       <ClipLoader color="#339AF0" loading={loading} size={size} />
