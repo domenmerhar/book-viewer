@@ -10,7 +10,7 @@ export const BookList = () => {
 
   if (error) return toast.error("An error occurred");
 
-  if (isLoading) return <SpinnerBig loading={isLoading} size={250} />;
+  if (isLoading) return <SpinnerBig loading={isLoading} />;
 
   const render: () => React.ReactNode[] = () =>
     books!.results.map((book) => (
