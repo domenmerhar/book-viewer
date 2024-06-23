@@ -13,17 +13,19 @@ const StyledCard = styled.div`
   min-height: 200px;
   border-radius: 10px;
   padding: 30px 0;
+  height: 100%;
 
   display: flex;
   flex-direction: column;
   align-items: center;
+
   gap: 16px;
 
   background-color: var(--gray-1);
 `;
 
 const StyledImage = styled.img`
-  height: 200px;
+  width: 200px;
 `;
 
 export const Card: React.FC<CardProps> = ({
