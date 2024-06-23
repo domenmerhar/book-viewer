@@ -31,9 +31,6 @@ export const Card: React.FC<CardProps> = ({
   title = "",
   subTitle = "",
 }) => {
-  imageSource =
-    "https://www.gutenberg.org/cache/epub/2701/pg2701.cover.medium.jpg";
-
   return (
     <StyledCard>
       <StyledImage src={imageSource} alt={title} />
