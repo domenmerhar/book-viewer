@@ -9,7 +9,7 @@ interface CardProps {
 }
 
 const StyledCard = styled.div`
-  width: 270px;
+  width: 300px;
   min-height: 200px;
   border-radius: 10px;
   padding: 30px 0;
