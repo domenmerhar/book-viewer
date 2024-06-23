@@ -5,24 +5,38 @@ import { Toaster } from "react-hot-toast";
 import { Books } from "./pages/Books";
 import { BookDetails } from "./pages/BookDetails";
 import { YourBooks } from "./pages/YourBooks";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 60 * 1000,
+    },
+  },
+});
 
 function App() {
   return (
     <>
-      <Toaster />
-      <GlobalStyles />
-      <BrowserRouter>
-        <Routes>
-          <Route element={<Layout />}>
-            <Route path="/" element={<Navigate to="/books" replace={true} />} />
-            <Route path="/books" element={<Books />} />
-            <Route path="/books/:id" element={<BookDetails />} />
-            <Route path="/your-books" element={<YourBooks />} />
-          </Route>
+      <QueryClientProvider client={queryClient}>
+        <Toaster />
+        <GlobalStyles />
+        <BrowserRouter>
+          <Routes>
+            <Route element={<Layout />}>
+              <Route
+                path="/"
+                element={<Navigate to="/books" replace={true} />}
+              />
+              <Route path="/books" element={<Books />} />
+              <Route path="/books/:id" element={<BookDetails />} />
+              <Route path="/your-books" element={<YourBooks />} />
+            </Route>
 
-          <Route path="*" element={<p>Invalid path</p>} />
-        </Routes>
-      </BrowserRouter>
+            <Route path="*" element={<p>Invalid path</p>} />
+          </Routes>
+        </BrowserRouter>
+      </QueryClientProvider>
     </>
   );
 }
