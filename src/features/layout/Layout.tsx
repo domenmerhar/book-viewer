@@ -11,6 +11,8 @@ const PageContent = styled.div`
 
   background-color: var(--gray-2);
   padding-top: 80px;
+
+  margin: 0 auto;
 `;
 
 export const Layout = () => {
