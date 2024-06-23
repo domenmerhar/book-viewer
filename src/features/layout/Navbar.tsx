@@ -21,8 +21,8 @@ const StyledNavLink = styled(NavLink)`
   text-decoration: none;
 
   & * {
-    transition: color 200ms ease-in;
-    transition: fill 200ms ease-in;
+    transition: all 200ms ease-in;
+    transition: all 200ms ease-in;
   }
 
   &.active * {
@@ -30,7 +30,9 @@ const StyledNavLink = styled(NavLink)`
     fill: var(--gray-3);
   }
 
-  & :hover {
+  & > :hover {
+    transform: scale(1.1);
+
     color: var(--gray-3);
     fill: var(--gray-3);
   }
