@@ -5,11 +5,7 @@ import { HeadingGradient } from "../utils/HeadingGradient";
 import styled from "styled-components";
 import { Holder } from "../utils/Holder";
 import { BookInfoCard } from "../features/BookDetails/BookInfoCard";
-
-const Row = styled.div`
-  display: flex;
-  flex-direction: row;
-`;
+import { Row } from "../utils/Row";
 
 const Image = styled.img`
   width: 300px;
