@@ -1,10 +1,12 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import GlobalStyles from "./GlobalStyles";
 import { Layout } from "./features/layout/Layout";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   return (
     <>
+      <Toaster />
       <GlobalStyles />
       <BrowserRouter>
         <Routes>
