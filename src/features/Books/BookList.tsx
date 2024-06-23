@@ -1,11 +1,15 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { books } from "../../data";
 import { Card } from "./Card";
 import { List } from "../../utils/List";
+import { useBooks } from "../../hooks/useBooks";
 
 export const BookList = () => {
   const navigate = useNavigate();
+
+  const { books, error, isLoading } = useBooks();
+
+  if (isLoading) return <p>Loading...</p>;
 
   const render: () => React.ReactNode[] = () =>
     books.results.map((book) => (
