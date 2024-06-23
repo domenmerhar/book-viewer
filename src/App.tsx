@@ -11,6 +11,8 @@ function App() {
           <Route path="/books" element={<p>books</p>} />
           <Route path="/books/:id" element={<p>/books/:id</p>} />
           <Route path="/your-books" element={<p>/your-books</p>} />
+
+          <Route path="*" element={<p>Invalid path</p>} />
         </Routes>
       </BrowserRouter>
     </>
