@@ -12,6 +12,9 @@ const StyledNavbar = styled.nav`
 
   height: 70px;
   padding: 0 20px;
+  position: fixed;
+  width: 1160px;
+  z-index: 1000;
 `;
 
 const StyledNavLink = styled(NavLink)`
