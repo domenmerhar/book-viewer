@@ -4,6 +4,7 @@ interface HeadingProps {
   type: "primary" | "secondary";
   allignment?: "center" | "left";
   fontSize?: string;
+  width?: string;
 }
 
 export const Heading = styled.h1<HeadingProps>`
@@ -11,12 +12,13 @@ export const Heading = styled.h1<HeadingProps>`
 
   ${(props) => css`
     text-align: ${props.allignment || "left"};
+    width: ${props.width || "auto"};
   `}
 
   ${(props) =>
     props.type === "primary" &&
     css`
-      font-weight: 700;
+      font-weight: 800;
       font-size: ${props.fontSize || "20px"}; // Added a comma here
     `}
 
