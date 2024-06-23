@@ -24,14 +24,16 @@ const StyledInput = styled.input<StyledInputProps>`
     styleType === "primary" &&
     css`
       background-color: white;
+      min-width: 200px;
       max-width: 300px;
     `};
 
   ${({ styleType }) =>
     styleType === "secondary" &&
     css`
-      transform: translateX(-20px);
+      transform: translateX(-25px);
       background-color: var(--gray-3);
+      min-width: 150px;
       max-width: 200px;
     `};
 
