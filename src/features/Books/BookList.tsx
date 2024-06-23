@@ -3,16 +3,19 @@ import { useNavigate } from "react-router-dom";
 import { Card } from "./Card";
 import { List } from "../../utils/List";
 import { useBooks } from "../../hooks/useBooks";
+import toast from "react-hot-toast";
 
 export const BookList = () => {
   const navigate = useNavigate();
 
   const { books, error, isLoading } = useBooks();
 
+  if (error) return toast.error("An error occurred");
+
   if (isLoading) return <p>Loading...</p>;
 
   const render: () => React.ReactNode[] = () =>
-    books.results.map((book) => (
+    books!.results.map((book) => (
       <li>
         <Card
           key={book.id}
