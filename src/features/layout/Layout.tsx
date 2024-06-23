@@ -17,6 +17,11 @@ const StyledNavbar = styled.nav`
 const StyledNavLink = styled(NavLink)`
   text-decoration: none;
 
+  & * {
+    transition: color 200ms ease-in;
+    transition: fill 200ms ease-in;
+  }
+
   &.active * {
     color: var(--gray-3) !important;
     fill: var(--gray-3);
