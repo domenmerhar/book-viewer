@@ -1,16 +1,18 @@
 import React from "react";
 import styled from "styled-components";
 import { Heading } from "../../utils/Heading";
+import { NavLink } from "react-router-dom";
 
 interface CardProps {
   imageSource?: string;
   title?: string;
   subTitle?: string;
-  onClick?: () => void;
+  to: string;
 }
 
-const StyledCard = styled.button`
+const StyledCard = styled(NavLink)`
   border: none;
+  text-decoration: none;
   cursor: pointer;
 
   width: 300px;
@@ -60,10 +62,10 @@ export const Card: React.FC<CardProps> = ({
   imageSource = "",
   title = "",
   subTitle = "",
-  onClick = undefined,
+  to,
 }) => {
   return (
-    <StyledCard onClick={onClick}>
+    <StyledCard to={to}>
       <ImageHolder>
         <StyledImage src={imageSource} alt={title} />
       </ImageHolder>
