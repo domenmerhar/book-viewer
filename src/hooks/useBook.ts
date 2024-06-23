@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { getBook } from "../api/getBook";
 import { useParams } from "react-router-dom";
+import { Book } from "../Interface/Book";
 
 export const useBook = () => {
   const { id } = useParams<{ id: string }>();
@@ -9,6 +10,10 @@ export const useBook = () => {
     data: book,
     error,
     isLoading,
+  }: {
+    data: Book | undefined;
+    error: Error | null;
+    isLoading: boolean;
   } = useQuery({
     queryKey: ["book", id],
     queryFn: ({ queryKey }) => {
