@@ -28,6 +28,13 @@ const StyledImage = styled.img`
   width: 200px;
 `;
 
+const Titles = styled.div`
+  display: flex;
+  gap: 8px;
+  flex-direction: column;
+  width: 200px;
+`;
+
 export const Card: React.FC<CardProps> = ({
   imageSource = "",
   title = "",
@@ -37,14 +44,14 @@ export const Card: React.FC<CardProps> = ({
     <StyledCard>
       <StyledImage src={imageSource} alt={title} />
 
-      <span>
+      <Titles>
         <Heading as="h1" type="primary">
           {title}
         </Heading>
         <Heading as="h2" type="secondary">
           {subTitle}
         </Heading>
-      </span>
+      </Titles>
     </StyledCard>
   );
 };
