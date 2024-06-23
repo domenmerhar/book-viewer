@@ -5,6 +5,7 @@ import { Heading } from "../../utils/Heading";
 import { Holder } from "../../utils/Holder";
 import { InfoParagraph } from "./InfoParagraph";
 import { HiDownload } from "react-icons/hi";
+import { Row } from "../../utils/Row";
 
 interface BookInfoCardProps {
   book: Book | undefined;
@@ -22,6 +23,7 @@ const ButtonGradient = styled.button`
 
   & * {
     color: var(--white);
+    transition: transform 200ms;
   }
 
   &:hover {
@@ -53,7 +55,6 @@ const Option = styled.option`
 export const BookInfoCard: React.FC<BookInfoCardProps> = ({ book }) => {
   return (
     <Holder
-      width="370px"
       justifyContent="space-between"
       alignItems="flex-start"
       isColumn={true}
@@ -109,23 +110,25 @@ export const BookInfoCard: React.FC<BookInfoCardProps> = ({ book }) => {
         </Column>
       </div>
 
-      <ButtonGradient>
-        <Flex>
-          <HiDownload size={24} />
-          Download
-        </Flex>
-      </ButtonGradient>
+      <Row gap="12px">
+        <ButtonGradient>
+          <Flex>
+            <HiDownload size={24} />
+            Download
+          </Flex>
+        </ButtonGradient>
 
-      <ButtonGradient>
-        <Flex>
-          Add to
-          <Select>
-            <Option>Wishlist</Option>
-            <Option>Reading</Option>
-            <Option>Finished</Option>
-          </Select>
-        </Flex>
-      </ButtonGradient>
+        <ButtonGradient>
+          <Flex>
+            Add to
+            <Select>
+              <Option>Wishlist</Option>
+              <Option>Reading</Option>
+              <Option>Finished</Option>
+            </Select>
+          </Flex>
+        </ButtonGradient>
+      </Row>
     </Holder>
   );
 };
