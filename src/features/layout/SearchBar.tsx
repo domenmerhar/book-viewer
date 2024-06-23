@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { HiSearch } from "react-icons/hi";
 import { useSearchParams } from "react-router-dom";
 import styled, { css } from "styled-components";
@@ -10,6 +10,7 @@ interface StyledInputProps {
 const Form = styled.form`
   display: flex;
   align-items: center;
+  position: relative;
 
   & > * {
     border-radius: 100000px;
@@ -60,14 +61,36 @@ const Button = styled.button`
   }
 `;
 
+const Error = styled.p`
+  position: absolute;
+  bottom: -30px;
+  left: 10px;
+  font-size: 13px;
+
+  color: var(--red);
+  transition: all 200ms;
+
+  opacity: 0;
+  transform: translateY(-10px);
+
+  &.visible {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+`;
+
 export const SearchBar = () => {
   const [title, setTitle] = useState<string>("");
   const [author, setAuthor] = useState<string>("");
+
+  const ref = useRef<HTMLParagraphElement>(null);
 
   const [, setSearchParams] = useSearchParams();
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+
+    if (!title && !author) return ref.current?.classList.add("visible");
 
     const searchParams = { ...(title && { title }), ...(author && { author }) };
 
@@ -81,7 +104,10 @@ export const SearchBar = () => {
         type="text"
         placeholder="Book title"
         value={title}
-        onChange={(e) => setTitle(e.target.value)}
+        onChange={(e) => {
+          ref.current?.classList.remove("visible");
+          setTitle(e.target.value);
+        }}
       />
 
       <StyledInput
@@ -89,12 +115,17 @@ export const SearchBar = () => {
         type="text"
         placeholder="Author"
         value={author}
-        onChange={(e) => setAuthor(e.target.value)}
+        onChange={(e) => {
+          ref.current?.classList.remove("visible");
+          setAuthor(e.target.value);
+        }}
       />
 
       <Button onClick={handleSubmit}>
         <HiSearch size="24px" />
       </Button>
+
+      <Error ref={ref}>Please insert a book title or an author name.</Error>
     </Form>
   );
 };
