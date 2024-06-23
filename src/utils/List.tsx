@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 interface ListProps {
-  renderFn: (item: unknown) => React.ReactNode;
+  renderFn: () => React.ReactNode[];
   itemWidth: number;
 }
 
@@ -26,6 +26,6 @@ const StyledList = styled.ul<StyledListProps>`
   transition: all 200ms ease-in;
 `;
 
-export const List: React.FC = ({ itemWidth, children }) => {
-  return <StyledList itemWidth={itemWidth}>{children}</StyledList>;
+export const List: React.FC<ListProps> = ({ itemWidth, renderFn }) => {
+  return <StyledList itemWidth={itemWidth}>{renderFn()}</StyledList>;
 };
