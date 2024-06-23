@@ -1,12 +1,17 @@
+import { HiSearch } from "react-icons/hi";
 import styled, { css } from "styled-components";
 
 interface StyledInputProps {
   styleType: "primary" | "secondary";
 }
 
-const StyledSearchBar = styled.div`
+const Form = styled.form`
+  display: flex;
+  align-items: center;
+
   & > * {
     border-radius: 100000px;
+    height: 30px;
   }
 `;
 
@@ -35,11 +40,30 @@ const StyledInput = styled.input<StyledInputProps>`
   }
 `;
 
+const Button = styled.button`
+  width: 70px;
+  background-color: var(--gray-5);
+  border: none;
+  transform: translateX(-45px);
+
+  transition: all 300ms;
+
+  &:hover {
+    & > * {
+      transition: all 300ms;
+      color: white;
+    }
+  }
+`;
+
 export const SearchBar = () => {
   return (
-    <StyledSearchBar>
+    <Form>
       <StyledInput styleType="primary" type="text" placeholder="Book title" />
       <StyledInput styleType="secondary" type="text" placeholder="Author" />
-    </StyledSearchBar>
+      <Button>
+        <HiSearch size="24px" />
+      </Button>
+    </Form>
   );
 };
