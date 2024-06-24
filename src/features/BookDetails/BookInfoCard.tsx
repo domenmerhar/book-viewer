@@ -26,6 +26,7 @@ const ButtonGradient = styled.button`
   font-size: 16px;
   font-weight: 600;
   text-decoration: none;
+  color: var(--white);
 
   transition: all 200ms;
 
@@ -47,7 +48,7 @@ const Flex = styled.div`
 `;
 
 const Select = styled.select`
-  background-color: var(--gray-1);
+  background-color: var(--gray-3);
   color: var(--black);
   border: none;
   padding: 4px 8px;
@@ -62,24 +63,35 @@ export const BookInfoCard: React.FC<BookInfoCardProps> = ({ book }) => {
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSearchParams({ add: e.target.value });
+
+    if (
+      savedBooks.find(
+        (curr: LocalBook) =>
+          curr.id === book?.id && curr.collection === e.target.value
+      )
+    )
+      toast.error(`Book already exists in ${e.target.value}.`);
   };
 
   const handleClick = () => {
     const location = searchParams.get("add") || "wishlist";
-    const bookToSave = { id: book?.id, collection: location };
+
+    const bookToSave: LocalBook = {
+      id: book?.id,
+      collection: searchParams.get("add") || "wishlist",
+    };
 
     setSavedBooks((prev: LocalBook[]) => {
       if (
         prev.find(
-          (book) =>
+          (book: LocalBook) =>
             book.id === bookToSave.id &&
             book.collection === bookToSave.collection
         )
       ) {
-        toast.error(`Book already exists in ${location}`);
+        toast.error(`Book already exists in ${location}.`);
         return [...prev];
       }
-
       toast.success(`Book added to ${location}`);
       return [...prev, bookToSave];
     });
@@ -144,42 +156,21 @@ export const BookInfoCard: React.FC<BookInfoCardProps> = ({ book }) => {
 
       <div style={{ marginTop: "48px" }}>
         <Row gap="12px">
-          <ButtonGradient as={Link} to={book?.formats["application/epub+zip"]}>
-            <Flex>
-              <HiDownload size={24} />
-              Download
-            </Flex>
-          </ButtonGradient>
+          <Link to={book!.formats["application/epub+zip"]}>
+            <ButtonGradient>
+              <Flex>
+                <HiDownload size={24} />
+                Download
+              </Flex>
+            </ButtonGradient>
+          </Link>
 
-          <ButtonGradient onClick={handleClick}>
-            <Flex>
-              Add to
-              <Select onChange={handleChange}>
-                {/* {getSavedBook("wishlist") && (
-                  <Option value="wishlist">Wishlist</Option>
-                )}
-                <Option value="reading">Reading</Option>
-                <Option value="finished">Finished</Option> */}
-                <AddOption
-                  savedBooks={savedBooks}
-                  collection="wishlist"
-                  bookId={book?.id}
-                />
-
-                <AddOption
-                  savedBooks={savedBooks}
-                  collection="reaing"
-                  bookId={book?.id}
-                />
-
-                <AddOption
-                  savedBooks={savedBooks}
-                  collection=""
-                  bookId={book?.id}
-                />
-              </Select>
-            </Flex>
-          </ButtonGradient>
+          <ButtonGradient onClick={handleClick}>Add to</ButtonGradient>
+          <Select onChange={handleChange}>
+            <AddOption collection="wishlist" />
+            <AddOption collection="reading" />
+            <AddOption collection="finished" />
+          </Select>
         </Row>
       </div>
     </Holder>
