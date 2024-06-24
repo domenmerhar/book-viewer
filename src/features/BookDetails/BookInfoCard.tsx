@@ -47,6 +47,8 @@ const Flex = styled.div`
   gap: 8px;
 `;
 
+type addParam = "wishlist" | "reading" | "finished";
+
 export const BookInfoCard: React.FC<BookInfoCardProps> = ({ book }) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [savedBooks, setSavedBooks] = useLocalStorageState([], "savedBooks");
@@ -57,32 +59,52 @@ export const BookInfoCard: React.FC<BookInfoCardProps> = ({ book }) => {
     if (
       savedBooks.find(
         (curr: LocalBook) =>
-          curr.id === book?.id && curr.collection === e.target.value
+          curr.id === book?.id && curr[e.target.value as addParam] === true
       )
     )
       toast.error(`Book already exists in ${e.target.value}.`);
   };
 
   const handleClick = () => {
-    const location = searchParams.get("add") || "wishlist";
-
-    const bookToSave: LocalBook = {
-      id: book?.id,
-      collection: searchParams.get("add") || "wishlist",
-    };
+    const location: addParam = searchParams.get("add") || "wishlist";
 
     setSavedBooks((prev: LocalBook[]) => {
-      if (
-        prev.find(
-          (book: LocalBook) =>
-            book.id === bookToSave.id &&
-            book.collection === bookToSave.collection
-        )
-      ) {
+      const searchedBook = prev.find((curr: LocalBook) => curr.id === curr.id);
+
+      if (searchedBook && searchedBook[location] === true) {
         toast.error(`Book already exists in ${location}.`);
         return [...prev];
       }
+
       toast.success(`Book added to ${location}`);
+
+      if (searchedBook) {
+        if (location === "wishlist")
+          return [...prev, { ...searchedBook, wishlist: true }];
+
+        searchedBook.reading = searchedBook.finished = false;
+
+        return prev.map((curr: LocalBook) => {
+          if (curr.id === searchedBook?.id) {
+            curr.reading = curr.finished = false;
+            return (curr[location] = true);
+          }
+
+          return curr.id === searchedBook?.id
+            ? { ...curr, [location]: true }
+            : curr;
+        });
+      }
+
+      const bookToSave: LocalBook = {
+        id: book?.id,
+        wishlist: false,
+        reading: false,
+        finished: false,
+      };
+
+      bookToSave[location] = true;
+
       return [...prev, bookToSave];
     });
   };
@@ -159,6 +181,7 @@ export const BookInfoCard: React.FC<BookInfoCardProps> = ({ book }) => {
           <SelectSearch
             onChange={handleChange}
             values={["wishlist", "reading", "finished"]}
+            defaultValue={searchParams.get("add") || "wishlist"}
           />
         </Row>
       </div>
