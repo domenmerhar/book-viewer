@@ -11,6 +11,7 @@ const MainDiv = styled.div`
 
   background-color: var(--gray-2);
   padding-top: 80px;
+  padding-bottom: 10px;
 `;
 
 const PageContent = styled.div`
