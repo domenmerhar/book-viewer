@@ -69,7 +69,10 @@ export const BookInfoCard: React.FC<BookInfoCardProps> = ({ book }) => {
     const location: addParam = searchParams.get("add") || "wishlist";
 
     setSavedBooks((prev: LocalBook[]) => {
-      const searchedBook = prev.find((curr: LocalBook) => curr.id === curr.id);
+      console.log(prev);
+      const searchedBook = prev.find(
+        (curr: LocalBook) => curr.id === Number(book?.id)
+      );
 
       if (searchedBook && searchedBook[location] === true) {
         toast.error(`Book already exists in ${location}.`);
@@ -80,7 +83,10 @@ export const BookInfoCard: React.FC<BookInfoCardProps> = ({ book }) => {
 
       if (searchedBook) {
         if (location === "wishlist")
-          return [...prev, { ...searchedBook, wishlist: true }];
+          return prev.map((curr: LocalBook) => {
+            if (curr.id !== searchedBook!.id) return curr;
+            return { ...curr, wishlist: true };
+          });
 
         searchedBook.reading = searchedBook.finished = false;
 
