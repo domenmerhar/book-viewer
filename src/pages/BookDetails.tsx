@@ -6,7 +6,8 @@ import styled from "styled-components";
 import { Holder } from "../utils/Holder";
 import { BookInfoCard } from "../features/BookDetails/BookInfoCard";
 import { Row } from "../utils/Row";
-import { useLocalBook } from "../hooks/useLocalBook";
+import { LocalBook, useLocalStorageState } from "../hooks/useLocalStorageState";
+import { useParams } from "react-router-dom";
 
 interface StatusTagProps {
   type: "wishlist" | "reading" | "finished";
@@ -40,9 +41,13 @@ const localBookStatuses = ["wishlist", "reading", "finished"];
 
 export const BookDetails = () => {
   const { book, error, isLoading } = useBook();
-  const localBook = useLocalBook();
 
-  console.log(localBook);
+  const [localBooks, setLocalBooks] = useLocalStorageState(null, "savedBooks");
+  const { id } = useParams<{ id: string }>();
+
+  const localBook = localBooks?.find(
+    (book: LocalBook) => book.id === Number(id)
+  );
 
   if (error) return toast.error("An error occurred. Please try again later.");
 
@@ -62,7 +67,11 @@ export const BookDetails = () => {
           <Image src={book?.formats["image/jpeg"]} alt={book?.title} />
         </Holder>
 
-        <BookInfoCard book={book} />
+        <BookInfoCard
+          book={book}
+          setSavedBooks={setLocalBooks}
+          savedBooks={localBooks}
+        />
       </Row>
     </>
   );
