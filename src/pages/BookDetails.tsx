@@ -13,14 +13,15 @@ interface StatusTagProps {
 
 const StatusTag = styled.span<StatusTagProps>`
   ${(props) => props.type === "wishlist" && "background: var(--blue-5);"}
-  ${(props) => props.type === "reading" && "background: var(--blue-5);"}
-  ${(props) => props.type === "finished" && "background: var(--blue-5);"}
+  ${(props) => props.type === "reading" && "background: var(--yellow-4);"}
+  ${(props) => props.type === "finished" && "background: var(--blue-3);"}
 
   color: var(--white);
-  font-size: 12px;
-  letter-spacing: 3px;
+  font-size: 14px;
+  letter-spacing: 4px;
   padding: 8px 8px;
   border-radius: 1000px;
+  max-height: 40px;
 
   display: flex;
   justify-content: center;
