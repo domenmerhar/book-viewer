@@ -1,5 +1,4 @@
 import toast from "react-hot-toast";
-import { LocalBook } from "../hooks/useLocalStorageState";
 import { useSavedBooks } from "../hooks/useSavedBooks";
 import { List } from "../utils/List";
 import { SpinnerBig } from "../utils/SpinnerBig";
@@ -8,8 +7,9 @@ import { useSearchParams } from "react-router-dom";
 import { Categories } from "../features/YourBooks/Categories";
 import { CardSmall } from "../features/YourBooks/CardSmall";
 import { Book } from "../Interface/Book";
-import { Books } from "./Books";
 import { sortBooks, sortType } from "../utils/sortBooks";
+import { Row } from "../utils/Row";
+import { Heading } from "../utils/Heading";
 
 const options = [
   "added (oldest first)",
@@ -21,7 +21,6 @@ const options = [
 ];
 
 type category = "wishlist" | "reading" | "finished";
-
 const categories = ["wishlist", "reading", "finished"];
 
 export const YourBooks = () => {
@@ -52,13 +51,18 @@ export const YourBooks = () => {
 
   return (
     <>
-      <Categories categories={categories} />
+      <Row justifyContent="space-between">
+        <Categories categories={categories} />
 
-      <SelectSearch
-        defaultValue={sort}
-        values={options}
-        onChange={handleChange}
-      />
+        <Row gap="16px" alignItems="center">
+          <Heading type="secondary">Sort by: </Heading>
+          <SelectSearch
+            defaultValue={sort}
+            values={options}
+            onChange={handleChange}
+          />
+        </Row>
+      </Row>
 
       <List
         itemWidth={415}
