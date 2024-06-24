@@ -9,28 +9,31 @@ export type sortType =
   | "author";
 
 export const sortBooks = (books: Book[], sort: sortType) => {
+  const sortedBooks = [...books];
+
   switch (sort) {
     case "added (oldest first)":
-      return books;
+      return sortedBooks;
     case "added (newest first)":
-      return books.reverse();
+      return sortedBooks.reverse();
     case "oldest":
-      return books.sort(
+      return sortedBooks.sort(
         (a, b) =>
-          (a?.authors[0]?.birth_year || 0) - (b?.authors[0]?.birth_year || 0)
+          (a?.authors[0]?.birth_year || Infinity) -
+          (b?.authors[0]?.birth_year || Infinity)
       );
     case "youngest":
-      return books.sort(
+      return sortedBooks.sort(
         (a, b) =>
-          (a?.authors[0]?.birth_year || 0) + (b?.authors[0]?.birth_year || 0)
+          (b?.authors[0]?.birth_year || 0) - (a?.authors[0]?.birth_year || 0)
       );
     case "title":
-      return books.sort((a, b) => a.title.localeCompare(b.title));
+      return sortedBooks.sort((a, b) => a.title.localeCompare(b.title));
     case "author":
-      return books.sort((a, b) =>
+      return sortedBooks.sort((a, b) =>
         a.authors[0].name.localeCompare(b.authors[0].name)
       );
     default:
-      return books;
+      return sortedBooks;
   }
 };
