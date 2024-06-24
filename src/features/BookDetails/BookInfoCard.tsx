@@ -69,7 +69,6 @@ export const BookInfoCard: React.FC<BookInfoCardProps> = ({ book }) => {
     const location: addParam = searchParams.get("add") || "wishlist";
 
     setSavedBooks((prev: LocalBook[]) => {
-      console.log(prev);
       const searchedBook = prev.find(
         (curr: LocalBook) => curr.id === Number(book?.id)
       );
