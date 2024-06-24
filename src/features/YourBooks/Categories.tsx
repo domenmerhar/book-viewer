@@ -44,10 +44,6 @@ export const Categories: React.FC<CategoryProps> = ({ categories }) => {
   return (
     <Row>
       {categories.map((categoryItem) => {
-        console.log(currentCategory);
-        console.log(categoryItem);
-        console.log(currentCategory === categoryItem);
-
         return (
           <Button
             key={categoryItem}
