@@ -8,12 +8,14 @@ import { useSearchParams } from "react-router-dom";
 import { Categories } from "../features/YourBooks/Categories";
 import { CardSmall } from "../features/YourBooks/CardSmall";
 import { Book } from "../Interface/Book";
+import { Books } from "./Books";
+import { sortBooks, sortType } from "../utils/sortBooks";
 
 const options = [
   "added (oldest first)",
   "added (newest first)",
-  "youngest",
   "oldest",
+  "youngest",
   "title",
   "author",
 ];
@@ -23,9 +25,10 @@ type category = "wishlist" | "reading" | "finished";
 const categories = ["wishlist", "reading", "finished"];
 
 export const YourBooks = () => {
-  const [searchParams] = useSearchParams();
-  const currentCategory: category =
-    (searchParams.get("category") as category) || "wishlist";
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const category = (searchParams.get("category") as category) || "wishlist";
+  const currentCategory: category = category;
 
   const { data: savedBooks, error, isLoading } = useSavedBooks(currentCategory);
 
@@ -39,12 +42,16 @@ export const YourBooks = () => {
     setSearchParams({ sort: e.target.value });
   };
 
+  const sort: sortType = (searchParams.get("sort") as sortType) || options[0];
+
+  const sortedBooks = sortBooks(savedBooks, sort);
+
   return (
     <>
       <Categories categories={categories} />
 
       <SelectSearch
-        defaultValue="added (oldest first)"
+        defaultValue={sort}
         values={options}
         onChange={handleChange}
       />
@@ -52,7 +59,7 @@ export const YourBooks = () => {
       <List
         itemWidth={415}
         renderFn={() =>
-          savedBooks.map((book: Book) => (
+          sortedBooks.map((book: Book) => (
             <CardSmall
               key={book.id}
               image={book.formats["image/jpeg"]}
