@@ -39,7 +39,11 @@ export const YourBooks = () => {
   if (isLoading) return <SpinnerBig loading={true} />;
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSearchParams({ sort: e.target.value });
+    const params = Object.fromEntries(searchParams.entries());
+
+    // Update the 'sort' parameter while preserving others
+    setSearchParams({ ...params, sort: e.target.value });
+    //setSearchParams({ sort: e.target.value });
   };
 
   const sort: sortType = (searchParams.get("sort") as sortType) || options[0];
