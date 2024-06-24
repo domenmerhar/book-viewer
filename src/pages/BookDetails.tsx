@@ -6,6 +6,7 @@ import styled from "styled-components";
 import { Holder } from "../utils/Holder";
 import { BookInfoCard } from "../features/BookDetails/BookInfoCard";
 import { Row } from "../utils/Row";
+import { useLocalBook } from "../hooks/useLocalBook";
 
 interface StatusTagProps {
   type: "wishlist" | "reading" | "finished";
@@ -35,8 +36,13 @@ const Image = styled.img`
   width: 300px;
 `;
 
+const localBookStatuses = ["wishlist", "reading", "finished"];
+
 export const BookDetails = () => {
   const { book, error, isLoading } = useBook();
+  const localBook = useLocalBook();
+
+  console.log(localBook);
 
   if (error) return toast.error("An error occurred. Please try again later.");
 
@@ -46,9 +52,10 @@ export const BookDetails = () => {
     <>
       <Row>
         <HeadingGradient>{book?.title}</HeadingGradient>
-        <StatusTag type="wishlist">Wishlist</StatusTag>
-        <StatusTag type="reading">Reading</StatusTag>
-        <StatusTag type="finished">Finished</StatusTag>
+        {localBookStatuses.map(
+          (status) =>
+            localBook?.[status] && <StatusTag type={status}>{status}</StatusTag>
+        )}
       </Row>
       <Row gap="64px" justifyContent="space-around">
         <Holder>
