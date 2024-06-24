@@ -7,15 +7,14 @@ import { InfoParagraph } from "./InfoParagraph";
 import { HiDownload } from "react-icons/hi";
 import { Row } from "../../utils/Row";
 import { Link, useSearchParams } from "react-router-dom";
-import {
-  LocalBook,
-  useLocalStorageState,
-} from "../../hooks/useLocalStorageState";
+import { LocalBook } from "../../hooks/useLocalStorageState";
 import toast from "react-hot-toast";
 import { SelectSearch } from "../../utils/SelectSearch";
 
 interface BookInfoCardProps {
   book: Book | undefined;
+  setSavedBooks: React.Dispatch<React.SetStateAction<LocalBook[]>>;
+  savedBooks: LocalBook[];
 }
 
 const ButtonGradient = styled.button`
@@ -49,9 +48,13 @@ const Flex = styled.div`
 
 type addParam = "wishlist" | "reading" | "finished";
 
-export const BookInfoCard: React.FC<BookInfoCardProps> = ({ book }) => {
+export const BookInfoCard: React.FC<BookInfoCardProps> = ({
+  book,
+  setSavedBooks,
+  savedBooks,
+}) => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [savedBooks, setSavedBooks] = useLocalStorageState([], "savedBooks");
+  //const [savedBooks, setSavedBooks] = useLocalStorageState([], "savedBooks");
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSearchParams({ add: e.target.value });
