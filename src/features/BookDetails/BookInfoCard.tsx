@@ -7,8 +7,12 @@ import { InfoParagraph } from "./InfoParagraph";
 import { HiDownload } from "react-icons/hi";
 import { Row } from "../../utils/Row";
 import { Link, useSearchParams } from "react-router-dom";
-import { useLocalStorageState } from "../../hooks/useLocalStorageState";
+import {
+  LocalBook,
+  useLocalStorageState,
+} from "../../hooks/useLocalStorageState";
 import toast from "react-hot-toast";
+import { AddOption } from "./AddOption";
 
 interface BookInfoCardProps {
   book: Book | undefined;
@@ -52,11 +56,6 @@ const Select = styled.select`
   margin-top: 2px;
 `;
 
-const Option = styled.option`
-  background-color: var(--gray-1);
-  color: var(--black);
-`;
-
 export const BookInfoCard: React.FC<BookInfoCardProps> = ({ book }) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [savedBooks, setSavedBooks] = useLocalStorageState([], "savedBooks");
@@ -69,7 +68,7 @@ export const BookInfoCard: React.FC<BookInfoCardProps> = ({ book }) => {
     const location = searchParams.get("add") || "wishlist";
     const bookToSave = { id: book?.id, collection: location };
 
-    setSavedBooks((prev: { id: number | undefined; collection: string }[]) => {
+    setSavedBooks((prev: LocalBook[]) => {
       if (
         prev.find(
           (book) =>
@@ -85,8 +84,6 @@ export const BookInfoCard: React.FC<BookInfoCardProps> = ({ book }) => {
       return [...prev, bookToSave];
     });
   };
-
-  console.log(savedBooks);
 
   return (
     <Holder
@@ -158,9 +155,28 @@ export const BookInfoCard: React.FC<BookInfoCardProps> = ({ book }) => {
             <Flex>
               Add to
               <Select onChange={handleChange}>
-                <Option value="wishlist">Wishlist</Option>
+                {/* {getSavedBook("wishlist") && (
+                  <Option value="wishlist">Wishlist</Option>
+                )}
                 <Option value="reading">Reading</Option>
-                <Option value="finished">Finished</Option>
+                <Option value="finished">Finished</Option> */}
+                <AddOption
+                  savedBooks={savedBooks}
+                  collection="wishlist"
+                  bookId={book?.id}
+                />
+
+                <AddOption
+                  savedBooks={savedBooks}
+                  collection="reaing"
+                  bookId={book?.id}
+                />
+
+                <AddOption
+                  savedBooks={savedBooks}
+                  collection=""
+                  bookId={book?.id}
+                />
               </Select>
             </Flex>
           </ButtonGradient>
