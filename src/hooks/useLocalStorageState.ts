@@ -15,3 +15,8 @@ export function useLocalStorageState(initialState: unknown, key: string) {
 
   return [value, setValue];
 }
+
+export interface LocalBook {
+  id: number | undefined;
+  collection: string;
+}
