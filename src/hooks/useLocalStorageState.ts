@@ -18,5 +18,7 @@ export function useLocalStorageState(initialState: unknown, key: string) {
 
 export interface LocalBook {
   id: number | undefined;
-  collection: string;
+  wishlist: boolean;
+  reading: boolean;
+  finished: boolean;
 }
