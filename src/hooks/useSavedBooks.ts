@@ -2,7 +2,9 @@ import { useQuery } from "@tanstack/react-query";
 import { LocalBook, useLocalStorageState } from "./useLocalStorageState";
 import { getBooksById } from "../api/getBooksById";
 
-export const useSavedBooks = (type: "wishlist" | "reading" | "finished") => {
+type category = "wishlist" | "reading" | "finished";
+
+export const useSavedBooks = (type: category) => {
   const [savedBooks] = useLocalStorageState([], "savedBooks");
 
   const bookIds = savedBooks
@@ -17,6 +19,8 @@ export const useSavedBooks = (type: "wishlist" | "reading" | "finished") => {
     queryKey: ["savedBooks", type],
     queryFn: () => getBooksById(bookIds),
   });
+
+  if (bookIds.length === 0) return { data: [], error: null, isLoading: false };
 
   return {
     data: dataApi?.results ?? [],
