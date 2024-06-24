@@ -18,11 +18,16 @@ const options = [
   "author",
 ];
 
-const categories = ["wishlist", "reading", "read"];
+type category = "wishlist" | "reading" | "finished";
+
+const categories = ["wishlist", "reading", "finished"];
 
 export const YourBooks = () => {
-  const { data: savedBooks, error, isLoading } = useSavedBooks("wishlist");
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
+  const currentCategory: category =
+    (searchParams.get("category") as category) || "wishlist";
+
+  const { data: savedBooks, error, isLoading } = useSavedBooks(currentCategory);
 
   if (error) {
     toast.error("An error occurred, please try again later.");
@@ -33,8 +38,6 @@ export const YourBooks = () => {
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSearchParams({ sort: e.target.value });
   };
-
-  console.log(savedBooks);
 
   return (
     <>
