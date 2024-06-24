@@ -5,6 +5,7 @@ import styled from "styled-components";
 interface SelectSearchParams {
   onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   values: string[];
+  defaultValue: string;
 }
 
 const Select = styled.select`
@@ -20,9 +21,10 @@ const Select = styled.select`
 export const SelectSearch: React.FC<SelectSearchParams> = ({
   onChange,
   values,
+  defaultValue,
 }) => {
   return (
-    <Select onChange={onChange}>
+    <Select onChange={onChange} defaultValue={defaultValue}>
       {values.map((value) => (
         <AddOption key={value} collection={value} />
       ))}
