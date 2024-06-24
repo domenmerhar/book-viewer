@@ -6,6 +6,7 @@ import { Holder } from "../../utils/Holder";
 import { InfoParagraph } from "./InfoParagraph";
 import { HiDownload } from "react-icons/hi";
 import { Row } from "../../utils/Row";
+import { Link, useSearchParams } from "react-router-dom";
 
 interface BookInfoCardProps {
   book: Book | undefined;
@@ -18,6 +19,7 @@ const ButtonGradient = styled.button`
   padding: 0.75em 1.25em;
   font-size: 16px;
   font-weight: 600;
+  text-decoration: none;
 
   transition: all 200ms;
 
@@ -28,6 +30,7 @@ const ButtonGradient = styled.button`
 
   &:hover {
     transform: scale(1.1);
+    cursor: pointer;
   }
 `;
 
@@ -53,6 +56,16 @@ const Option = styled.option`
 `;
 
 export const BookInfoCard: React.FC<BookInfoCardProps> = ({ book }) => {
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSearchParams({ add: e.target.value });
+  };
+
+  const handleClick = () => {
+    const location = searchParams.get("add");
+  };
+
   return (
     <Holder
       justifyContent="space-between"
@@ -112,20 +125,20 @@ export const BookInfoCard: React.FC<BookInfoCardProps> = ({ book }) => {
 
       <div style={{ marginTop: "48px" }}>
         <Row gap="12px">
-          <ButtonGradient>
+          <ButtonGradient as={Link} to={book?.formats["application/epub+zip"]}>
             <Flex>
               <HiDownload size={24} />
               Download
             </Flex>
           </ButtonGradient>
 
-          <ButtonGradient>
+          <ButtonGradient onClick={handleClick}>
             <Flex>
               Add to
-              <Select>
-                <Option>Wishlist</Option>
-                <Option>Reading</Option>
-                <Option>Finished</Option>
+              <Select onChange={handleChange}>
+                <Option value="wishlist">Wishlist</Option>
+                <Option value="reading">Reading</Option>
+                <Option value="finished">Finished</Option>
               </Select>
             </Flex>
           </ButtonGradient>
