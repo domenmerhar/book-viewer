@@ -12,7 +12,7 @@ import {
   useLocalStorageState,
 } from "../../hooks/useLocalStorageState";
 import toast from "react-hot-toast";
-import { AddOption } from "./AddOption";
+import { SelectSearch } from "../../utils/SelectSearch";
 
 interface BookInfoCardProps {
   book: Book | undefined;
@@ -45,16 +45,6 @@ const Flex = styled.div`
   display: flex;
   align-items: center;
   gap: 8px;
-`;
-
-const Select = styled.select`
-  background-color: var(--gray-3);
-  color: var(--black);
-  border: none;
-  padding: 4px 8px;
-  border-radius: 1000px;
-
-  margin-top: 2px;
 `;
 
 export const BookInfoCard: React.FC<BookInfoCardProps> = ({ book }) => {
@@ -166,11 +156,10 @@ export const BookInfoCard: React.FC<BookInfoCardProps> = ({ book }) => {
           </Link>
 
           <ButtonGradient onClick={handleClick}>Add to</ButtonGradient>
-          <Select onChange={handleChange}>
-            <AddOption collection="wishlist" />
-            <AddOption collection="reading" />
-            <AddOption collection="finished" />
-          </Select>
+          <SelectSearch
+            onChange={handleChange}
+            values={["wishlist", "reading", "finished"]}
+          />
         </Row>
       </div>
     </Holder>
