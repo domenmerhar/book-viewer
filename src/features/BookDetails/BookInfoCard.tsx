@@ -7,6 +7,8 @@ import { InfoParagraph } from "./InfoParagraph";
 import { HiDownload } from "react-icons/hi";
 import { Row } from "../../utils/Row";
 import { Link, useSearchParams } from "react-router-dom";
+import { useLocalStorageState } from "../../hooks/useLocalStorageState";
+import toast from "react-hot-toast";
 
 interface BookInfoCardProps {
   book: Book | undefined;
@@ -57,14 +59,34 @@ const Option = styled.option`
 
 export const BookInfoCard: React.FC<BookInfoCardProps> = ({ book }) => {
   const [searchParams, setSearchParams] = useSearchParams();
+  const [savedBooks, setSavedBooks] = useLocalStorageState([], "savedBooks");
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSearchParams({ add: e.target.value });
   };
 
   const handleClick = () => {
-    const location = searchParams.get("add");
+    const location = searchParams.get("add") || "wishlist";
+    const bookToSave = { id: book?.id, collection: location };
+
+    setSavedBooks((prev: { id: number | undefined; collection: string }[]) => {
+      if (
+        prev.find(
+          (book) =>
+            book.id === bookToSave.id &&
+            book.collection === bookToSave.collection
+        )
+      ) {
+        toast.error(`Book already exists in ${location}`);
+        return [...prev];
+      }
+
+      toast.success(`Book added to ${location}`);
+      return [...prev, bookToSave];
+    });
   };
+
+  console.log(savedBooks);
 
   return (
     <Holder
