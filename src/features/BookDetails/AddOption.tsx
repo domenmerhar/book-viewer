@@ -1,11 +1,8 @@
 import React from "react";
-import { LocalBook } from "../../hooks/useLocalStorageState";
 import styled from "styled-components";
 
 interface AddOptionProps {
-  savedBooks: LocalBook[];
   collection: string;
-  bookId: number | undefined;
 }
 
 const Option = styled.option`
