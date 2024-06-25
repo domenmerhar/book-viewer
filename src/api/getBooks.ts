@@ -3,6 +3,7 @@ import { GUTENDEX_URL } from "./config";
 interface TitleAuthor {
   title: string;
   author: string;
+  page: number;
 }
 
 export const getBooks = async ({ title, author }: TitleAuthor) => {
