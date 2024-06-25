@@ -41,9 +41,8 @@ export const DropDownList: React.FC<DropDownListProps> = ({
   listClick,
 }) => {
   const [searchParams] = useSearchParams();
-  const category: bookLocationType = searchParams.get("category") as
-    | bookLocationType
-    | "wishlist";
+  const category: bookLocationType =
+    (searchParams.get("category") as bookLocationType) || "wishlist";
 
   const { removeBookCategory, addBook, getBook } = useYourBooks();
 
@@ -58,7 +57,7 @@ export const DropDownList: React.FC<DropDownListProps> = ({
   };
 
   const handleAdd = (categoryToAdd: bookLocationType) => {
-    () => {
+    return () => {
       addBook(`${id}`, categoryToAdd);
       listClick!();
     };
@@ -72,21 +71,21 @@ export const DropDownList: React.FC<DropDownListProps> = ({
       </Li>
 
       {!book?.wishlist && (
-        <Li onClick={() => handleAdd("wishlist")}>
+        <Li onClick={handleAdd("wishlist")}>
           <HiOutlineBookOpen />
           Add to reading
         </Li>
       )}
 
       {!book?.reading && "reading" && (
-        <Li onClick={() => handleAdd("reading")}>
+        <Li onClick={handleAdd("reading")}>
           <HiOutlineBookOpen />
           Add to reading
         </Li>
       )}
 
       {!book?.finished && "finished" && (
-        <Li onClick={() => handleAdd("finished")}>
+        <Li onClick={handleAdd("finished")}>
           <HiOutlineCheck />
           Add to finished
         </Li>
