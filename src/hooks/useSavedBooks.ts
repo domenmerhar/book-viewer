@@ -1,15 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
-import { LocalBook, useLocalStorageState } from "./useLocalStorageState";
+import { LocalBook } from "./useLocalStorageState";
 import { getBooksById } from "../api/getBooksById";
 
 type category = "wishlist" | "reading" | "finished";
 
-export const useSavedBooks = (type: category) => {
-  const [savedBooks] = useLocalStorageState([], "savedBooks");
-
-  const bookIds = savedBooks
-    .filter((book: LocalBook[]) => book[type])
-    .map((book: { id: number }) => book.id);
+export const useSavedBooks = (type: category, savedBooks: LocalBook[]) => {
+  const bookIds: { id: string }[] = savedBooks
+    .filter((book: LocalBook) => book[type])
+    .map((book: LocalBook) => book.id);
 
   const {
     data: dataApi,
