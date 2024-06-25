@@ -11,6 +11,7 @@ import { sortBooks, sortType } from "../utils/sortBooks";
 import { Row } from "../utils/Row";
 import { Heading } from "../utils/Heading";
 import ExpandingList from "../utils/ExpandingList";
+import { useYourBooks } from "../hooks/useYourBooks";
 
 const options = [
   "added (oldest first)",
@@ -26,11 +27,16 @@ const categories = ["wishlist", "reading", "finished"];
 
 export const YourBooks = () => {
   const [searchParams, setSearchParams] = useSearchParams();
+  const { savedBooks: localBooks } = useYourBooks();
 
   const category = (searchParams.get("category") as category) || "wishlist";
   const currentCategory: category = category;
 
-  const { data: savedBooks, error, isLoading } = useSavedBooks(currentCategory);
+  const {
+    data: savedBooks,
+    error,
+    isLoading,
+  } = useSavedBooks(currentCategory, localBooks);
 
   if (error) {
     toast.error("An error occurred, please try again later.");
@@ -38,13 +44,13 @@ export const YourBooks = () => {
   }
   if (isLoading) return <SpinnerBig loading={true} />;
 
+  const sort: sortType = (searchParams.get("sort") as sortType) || options[0];
+  const sortedBooks = sortBooks(savedBooks, sort);
+
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const params = Object.fromEntries(searchParams.entries());
     setSearchParams({ ...params, sort: e.target.value });
   };
-
-  const sort: sortType = (searchParams.get("sort") as sortType) || options[0];
-  const sortedBooks = sortBooks(savedBooks, sort);
 
   return (
     <ExpandingList>
