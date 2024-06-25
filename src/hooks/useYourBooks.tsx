@@ -8,6 +8,7 @@ interface yourBooksContextType {
   addBook: (id: string, location: bookLocationType) => void;
   getBook: (id: string) => LocalBook | undefined;
   bookHasProperty: (id: string, location: bookLocationType) => boolean;
+  removeBookCategory: (id: string, location: bookLocationType) => void;
 }
 
 interface yourBooksProviderProps {
@@ -50,7 +51,6 @@ export const YourBooksProvider: React.FC<yourBooksProviderProps> = ({
 
         return prev.map((curr: LocalBook) => {
           if (curr.id !== searchedBook.id) return curr;
-
           return searchedBook;
         });
       }
@@ -76,9 +76,38 @@ export const YourBooksProvider: React.FC<yourBooksProviderProps> = ({
       (curr: LocalBook) => curr.id === Number(id) && curr[location] === true
     ) !== undefined;
 
+  const removeBookCategory = (id: string, location: bookLocationType) => {
+    setSavedBooks((prev: LocalBook[]) => {
+      const searchedBook = prev.find(
+        (curr: LocalBook) => curr.id === Number(id)
+      );
+
+      if (
+        !searchedBook?.finished &&
+        !searchedBook?.reading &&
+        !searchedBook?.wishlist
+      )
+        return prev.filter((curr: LocalBook) => curr.id !== Number(id));
+
+      searchedBook![location] = false;
+
+      return prev.map((curr: LocalBook) => {
+        if (curr.id !== searchedBook.id) return curr;
+        return searchedBook;
+      });
+    });
+  };
+
   return (
     <yourBooksContext.Provider
-      value={{ savedBooks, setSavedBooks, addBook, getBook, bookHasProperty }}
+      value={{
+        savedBooks,
+        setSavedBooks,
+        addBook,
+        getBook,
+        bookHasProperty,
+        removeBookCategory,
+      }}
     >
       {children}
     </yourBooksContext.Provider>
