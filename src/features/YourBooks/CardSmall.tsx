@@ -8,6 +8,7 @@ import ExpandingList from "../../utils/ExpandingList";
 import { ButtonSquare } from "../../utils/ButtonSquare";
 import { HiOutlineDotsVertical } from "react-icons/hi";
 import { DropDownList } from "./DropDownList";
+import { NavLink } from "react-router-dom";
 
 interface CardSmallProps {
   id: number;
@@ -18,6 +19,13 @@ interface CardSmallProps {
 
 const Image = styled.img`
   width: 150px;
+
+  transition: all 200ms;
+
+  &:hover {
+    cursor: pointer;
+    transform: scale(1.05);
+  }
 `;
 
 const InfoWrapper = styled.div`
@@ -34,7 +42,9 @@ export const CardSmall: React.FC<CardSmallProps> = ({
     <ExpandingList>
       <Holder width="415px">
         <Row gap="16px">
-          <Image src={image} alt={title} />
+          <NavLink to={`/books/${id}`}>
+            <Image src={image} alt={title} />
+          </NavLink>
           <InfoWrapper>
             <Column gap="8px">
               <Heading type="primary">{title}</Heading>
