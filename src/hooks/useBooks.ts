@@ -13,17 +13,19 @@ export const useBooks = () => {
     data,
     error,
     isLoading,
+    fetchNextPage,
   }: {
     data: { pages: BooksData[] } | undefined;
     error: Error | null;
     isLoading: boolean;
+    fetchNextPage: () => void;
   } = useInfiniteQuery({
     queryKey: ["books", title, author],
     queryFn: ({ pageParam }: { pageParam: number }) =>
       getBooks({ title, author, page: pageParam }),
     initialPageParam: 1,
-    getNextPageParam: (lastPage) => lastPage.nextPage,
+    getNextPageParam: (lastPage) => lastPage.nextPage + 1 || 2,
   });
 
-  return { data, error, isLoading };
+  return { data, error, isLoading, fetchNextPage };
 };
