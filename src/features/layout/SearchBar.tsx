@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { HiSearch } from "react-icons/hi";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import styled, { css } from "styled-components";
 
 interface StyledInputProps {
@@ -82,10 +82,9 @@ const Error = styled.p`
 export const SearchBar = () => {
   const [title, setTitle] = useState<string>("");
   const [author, setAuthor] = useState<string>("");
+  const navigate = useNavigate();
 
   const ref = useRef<HTMLParagraphElement>(null);
-
-  const [, setSearchParams] = useSearchParams();
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -94,7 +93,10 @@ export const SearchBar = () => {
 
     const searchParams = { ...(title && { title }), ...(author && { author }) };
 
-    setSearchParams(searchParams);
+    navigate({
+      pathname: "/books",
+      search: `?${new URLSearchParams(searchParams).toString()}`,
+    });
   }
 
   return (
