@@ -10,6 +10,7 @@ import { Link, useSearchParams } from "react-router-dom";
 import { LocalBook } from "../../hooks/useLocalStorageState";
 import toast from "react-hot-toast";
 import { SelectSearch } from "../../utils/SelectSearch";
+import { useYourBooks } from "../../hooks/useYourBooks";
 
 interface BookInfoCardProps {
   book: Book | undefined;
@@ -48,73 +49,24 @@ const Flex = styled.div`
 
 type addParam = "wishlist" | "reading" | "finished";
 
-export const BookInfoCard: React.FC<BookInfoCardProps> = ({
-  book,
-  setSavedBooks,
-  savedBooks,
-}) => {
+export const BookInfoCard: React.FC<BookInfoCardProps> = ({ book }) => {
   const [searchParams, setSearchParams] = useSearchParams();
-  //const [savedBooks, setSavedBooks] = useLocalStorageState([], "savedBooks");
+  const { addBook, bookHasProperty } = useYourBooks();
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSearchParams({ add: e.target.value });
 
-    if (
-      savedBooks.find(
-        (curr: LocalBook) =>
-          curr.id === book?.id && curr[e.target.value as addParam] === true
-      )
-    )
+    if (bookHasProperty(book!.id.toString(), e.target.value as addParam))
       toast.error(`Book already exists in ${e.target.value}.`);
   };
 
   const handleClick = () => {
-    const location: addParam = searchParams.get("add") || "wishlist";
+    const location: addParam =
+      (searchParams.get("add") as addParam) || "wishlist";
 
-    setSavedBooks((prev: LocalBook[]) => {
-      const searchedBook = prev.find(
-        (curr: LocalBook) => curr.id === Number(book?.id)
-      );
+    console.log(location);
 
-      if (searchedBook && searchedBook[location] === true) {
-        toast.error(`Book already exists in ${location}.`);
-        return [...prev];
-      }
-
-      toast.success(`Book added to ${location}`);
-
-      if (searchedBook) {
-        if (location === "wishlist")
-          return prev.map((curr: LocalBook) => {
-            if (curr.id !== searchedBook!.id) return curr;
-            return { ...curr, wishlist: true };
-          });
-
-        searchedBook.reading = searchedBook.finished = false;
-
-        return prev.map((curr: LocalBook) => {
-          if (curr.id === searchedBook?.id) {
-            curr.reading = curr.finished = false;
-            return (curr[location] = true);
-          }
-
-          return curr.id === searchedBook?.id
-            ? { ...curr, [location]: true }
-            : curr;
-        });
-      }
-
-      const bookToSave: LocalBook = {
-        id: book?.id,
-        wishlist: false,
-        reading: false,
-        finished: false,
-      };
-
-      bookToSave[location] = true;
-
-      return [...prev, bookToSave];
-    });
+    addBook(book!.id.toString(), location);
   };
 
   return (
