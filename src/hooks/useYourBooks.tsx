@@ -5,16 +5,16 @@ import toast from "react-hot-toast";
 interface yourBooksContextType {
   savedBooks: LocalBook[];
   setSavedBooks: React.Dispatch<unknown>;
-  addBook: (id: string, location: locationType) => void;
+  addBook: (id: string, location: bookLocationType) => void;
   getBook: (id: string) => LocalBook | undefined;
-  bookHasProperty: (id: string, location: locationType) => boolean;
+  bookHasProperty: (id: string, location: bookLocationType) => boolean;
 }
 
 interface yourBooksProviderProps {
   children: React.ReactNode | React.ReactNode[];
 }
 
-type locationType = "wishlist" | "reading" | "finished";
+export type bookLocationType = "wishlist" | "reading" | "finished";
 
 const yourBooksContext = createContext<yourBooksContextType>(
   {} as yourBooksContextType
@@ -25,7 +25,7 @@ export const YourBooksProvider: React.FC<yourBooksProviderProps> = ({
 }) => {
   const [savedBooks, setSavedBooks] = useLocalStorageState([], "savedBooks");
 
-  function addBook(id: string, location: locationType) {
+  function addBook(id: string, location: bookLocationType) {
     setSavedBooks((prev: LocalBook[]) => {
       const searchedBook = prev.find(
         (curr: LocalBook) => curr.id === Number(id)
@@ -71,7 +71,7 @@ export const YourBooksProvider: React.FC<yourBooksProviderProps> = ({
   const getBook = (id: string) =>
     savedBooks.find((curr: LocalBook) => curr.id === Number(id));
 
-  const bookHasProperty = (id: string, location: locationType) =>
+  const bookHasProperty = (id: string, location: bookLocationType) =>
     savedBooks.find(
       (curr: LocalBook) => curr.id === Number(id) && curr[location] === true
     ) !== undefined;
