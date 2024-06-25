@@ -7,15 +7,22 @@ import { SpinnerBig } from "../../utils/SpinnerBig";
 import { BooksData } from "../../Interface/Book";
 import { useInView } from "react-intersection-observer";
 
+interface InvalidPage {
+  detail: string;
+}
+
 export const BookList = () => {
   const { data, error, isLoading, fetchNextPage } = useBooks();
   const { ref, inView } = useInView();
 
+  const invalidPage = data?.pages?.[-1]?.count === undefined;
+  console.log({ invalidPage, count: data?.pages?.[-1]?.count });
+
   useEffect(() => {
-    if (inView) {
+    if (inView && !invalidPage) {
       fetchNextPage();
     }
-  }, [inView, fetchNextPage]);
+  }, [inView, fetchNextPage, invalidPage]);
 
   if (error) return toast.error("An error occurred");
 
@@ -40,7 +47,7 @@ export const BookList = () => {
   return (
     <>
       <List itemWidth={300} renderFn={render} />
-      <div ref={ref}>{inView && <SpinnerBig loading />}</div>
+      <div ref={ref}>{inView && !invalidPage && <SpinnerBig loading />}</div>
     </>
   );
 };
