@@ -7,16 +7,13 @@ import { SpinnerBig } from "../../utils/SpinnerBig";
 import { BooksData } from "../../Interface/Book";
 import { useInView } from "react-intersection-observer";
 
-interface InvalidPage {
-  detail: string;
-}
-
 export const BookList = () => {
   const { data, error, isLoading, fetchNextPage } = useBooks();
   const { ref, inView } = useInView();
 
-  const invalidPage = data?.pages?.[-1]?.count === undefined;
-  console.log({ invalidPage, count: data?.pages?.[-1]?.count });
+  const invalidPage =
+    data?.pages?.[0]?.count === undefined ||
+    data?.pages?.[-1]?.count === undefined;
 
   useEffect(() => {
     if (inView && !invalidPage) {
@@ -30,9 +27,11 @@ export const BookList = () => {
 
   const pages = data?.pages;
 
+  if (invalidPage && data?.pages.length === 1) return <h1>No results found</h1>;
+
   const render: () => React.ReactNode[] = () =>
     pages!.map((books: BooksData) =>
-      books!.results.map((book) => (
+      books?.results?.map((book) => (
         <li key={book.id}>
           <Card
             title={book.title}
@@ -47,7 +46,9 @@ export const BookList = () => {
   return (
     <>
       <List itemWidth={300} renderFn={render} />
-      <div ref={ref}>{inView && !invalidPage && <SpinnerBig loading />}</div>
+      <div ref={ref}>
+        {inView && !invalidPage ? <SpinnerBig loading /> : <h1>That's all</h1>}
+      </div>
     </>
   );
 };
