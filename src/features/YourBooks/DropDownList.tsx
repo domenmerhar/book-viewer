@@ -6,6 +6,8 @@ import {
   HiOutlineCheck,
   HiOutlineTrash,
 } from "react-icons/hi";
+import { bookLocationType, useYourBooks } from "../../hooks/useYourBooks";
+import { useSearchParams } from "react-router-dom";
 
 interface DropDownListProps {
   id: number;
@@ -38,24 +40,57 @@ export const DropDownList: React.FC<DropDownListProps> = ({
   id,
   listClick,
 }) => {
-  const handleClick = () => {
-    if (listClick) listClick();
+  const [searchParams] = useSearchParams();
+  const category: bookLocationType = searchParams.get("category") as
+    | bookLocationType
+    | "wishlist";
+
+  const { removeBookCategory, addBook, getBook } = useYourBooks();
+
+  const book = getBook(`${id}`);
+
+  const handleDelete = () => {
+    removeBookCategory(
+      `${id}`,
+      searchParams.get("category") as bookLocationType
+    );
+    listClick!();
+  };
+
+  const handleAdd = (categoryToAdd: bookLocationType) => {
+    () => {
+      addBook(`${id}`, categoryToAdd);
+      listClick!();
+    };
   };
 
   return (
     <Ul>
-      <Li onClick={handleClick}>
+      <Li onClick={handleDelete}>
         <HiOutlineTrash />
-        <span>Remove</span>
+        Remove from {category}
       </Li>
-      <Li onClick={handleClick}>
-        <HiOutlineBookOpen />
-        Add to reading
-      </Li>
-      <Li onClick={handleClick}>
-        <HiOutlineCheck />
-        Add to finished
-      </Li>
+
+      {!book?.wishlist && (
+        <Li onClick={() => handleAdd("wishlist")}>
+          <HiOutlineBookOpen />
+          Add to reading
+        </Li>
+      )}
+
+      {!book?.reading && "reading" && (
+        <Li onClick={() => handleAdd("reading")}>
+          <HiOutlineBookOpen />
+          Add to reading
+        </Li>
+      )}
+
+      {!book?.finished && "finished" && (
+        <Li onClick={() => handleAdd("finished")}>
+          <HiOutlineCheck />
+          Add to finished
+        </Li>
+      )}
     </Ul>
   );
 };
