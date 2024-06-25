@@ -1,24 +1,77 @@
 import { createContext, useContext } from "react";
 import { LocalBook, useLocalStorageState } from "./useLocalStorageState";
+import toast from "react-hot-toast";
 
 interface yourBooksContextType {
   savedBooks: LocalBook[];
   setSavedBooks: React.Dispatch<unknown>;
+  addBook: (id: string, location: locationType) => void;
 }
 
 interface yourBooksProviderProps {
   children: React.ReactNode | React.ReactNode[];
 }
 
-const yourBooksContext = createContext<yourBooksContextType>({});
+type locationType = "wishlist" | "reading" | "finished";
+
+const yourBooksContext = createContext<yourBooksContextType>(
+  {} as yourBooksContextType
+);
 
 export const YourBooksProvider: React.FC<yourBooksProviderProps> = ({
   children,
 }) => {
   const [savedBooks, setSavedBooks] = useLocalStorageState([], "savedBooks");
 
+  function addBook(id: string, location: locationType) {
+    setSavedBooks((prev: LocalBook[]) => {
+      const searchedBook = prev.find(
+        (curr: LocalBook) => curr.id === Number(id)
+      );
+
+      if (searchedBook && searchedBook[location] === true) {
+        toast.error(`Book already exists in ${location}.`);
+        return [...prev];
+      }
+
+      toast.success(`Book added to ${location}`);
+
+      if (searchedBook) {
+        if (location === "wishlist")
+          return prev.map((curr: LocalBook) => {
+            if (curr.id !== searchedBook!.id) return curr;
+            return { ...curr, wishlist: true };
+          });
+
+        searchedBook.reading = searchedBook.finished = false;
+
+        return prev.map((curr: LocalBook) => {
+          if (curr.id === searchedBook?.id) {
+            curr.reading = curr.finished = false;
+            return (curr[location] = true);
+          }
+
+          return curr.id === searchedBook?.id
+            ? { ...curr, [location]: true }
+            : curr;
+        });
+      }
+
+      const bookToSave: LocalBook = {
+        id: Number(id),
+        wishlist: false,
+        reading: false,
+        finished: false,
+      };
+
+      bookToSave[location] = true;
+
+      return [...prev, bookToSave];
+    });
+  }
+
   return (
-    <yourBooksContext.Provider value={{ savedBooks, setSavedBooks }}>
+    <yourBooksContext.Provider value={{ savedBooks, setSavedBooks, addBook }}>
       {children}
     </yourBooksContext.Provider>
   );
