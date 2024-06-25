@@ -5,6 +5,7 @@ import React, {
   cloneElement,
 } from "react";
 import styled from "styled-components";
+import { useOutsideClick } from "../hooks/useOutsideClick";
 
 interface Coordinates {
   x: number;
@@ -24,6 +25,7 @@ interface ContextType {
   setIsOpen?: React.Dispatch<React.SetStateAction<boolean>>;
   position: Coordinates;
   setPosition: React.Dispatch<React.SetStateAction<Coordinates>>;
+  close: () => void;
 }
 
 const expandingListContext = createContext<ContextType>({} as ContextType);
@@ -32,9 +34,11 @@ export const ExpandingList = ({ children }: ChildrenProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [position, setPosition] = useState<Coordinates>({ x: 0, y: 0 });
 
+  const close = () => setIsOpen(false);
+
   return (
     <expandingListContext.Provider
-      value={{ isOpen, setIsOpen, position, setPosition }}
+      value={{ isOpen, setIsOpen, position, setPosition, close }}
     >
       {children}
     </expandingListContext.Provider>
@@ -78,15 +82,17 @@ const Button: React.FC<ButtonProps> = ({ children }) => {
 export type listClickType = () => void;
 
 const List: React.FC<ButtonProps> = ({ children }) => {
-  const { isOpen, setIsOpen } = useContext(expandingListContext);
+  const { isOpen, setIsOpen, close } = useContext(expandingListContext);
   const { position } = useContext(expandingListContext);
+
+  const ref = useOutsideClick(close);
 
   const listClick: listClickType = () => setIsOpen!(false);
 
   if (!isOpen) return null;
 
   return (
-    <Div x={position.x} y={position.y}>
+    <Div x={position.x} y={position.y} ref={ref}>
       {cloneElement(children as React.ReactElement, { listClick })}
     </Div>
   );
