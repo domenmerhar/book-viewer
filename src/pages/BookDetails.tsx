@@ -6,9 +6,8 @@ import styled from "styled-components";
 import { Holder } from "../utils/Holder";
 import { BookInfoCard } from "../features/BookDetails/BookInfoCard";
 import { Row } from "../utils/Row";
-import { LocalBook, useLocalStorageState } from "../hooks/useLocalStorageState";
 import { useParams } from "react-router-dom";
-import { useYourBooks } from "../hooks/useYourBooks";
+import { bookLocationType, useYourBooks } from "../hooks/useYourBooks";
 
 interface StatusTagProps {
   type: "wishlist" | "reading" | "finished";
@@ -42,16 +41,9 @@ const localBookStatuses = ["wishlist", "reading", "finished"];
 
 export const BookDetails = () => {
   const { book, error, isLoading } = useBook();
+  const { id } = useParams<{ id: string }>();
 
   const { getBook } = useYourBooks();
-
-  const { id } = useParams<{ id: string }>();
-  const [localBooks, setLocalBooks] = useLocalStorageState(null, "savedBooks");
-
-  // const localBook = localBooks?.find(
-  //   (book: LocalBook) => book.id === Number(id)
-  // );
-
   const localBook = getBook(id!);
 
   if (error) return toast.error("An error occurred. Please try again later.");
@@ -64,7 +56,9 @@ export const BookDetails = () => {
         <HeadingGradient>{book?.title}</HeadingGradient>
         {localBookStatuses.map(
           (status) =>
-            localBook?.[status] && <StatusTag type={status}>{status}</StatusTag>
+            localBook?.[status] && (
+              <StatusTag type={status as bookLocationType}>{status}</StatusTag>
+            )
         )}
       </Row>
       <Row gap="64px" justifyContent="space-around">
@@ -72,11 +66,7 @@ export const BookDetails = () => {
           <Image src={book?.formats["image/jpeg"]} alt={book?.title} />
         </Holder>
 
-        <BookInfoCard
-          book={book}
-          setSavedBooks={setLocalBooks}
-          savedBooks={localBooks}
-        />
+        <BookInfoCard book={book} />
       </Row>
     </>
   );
