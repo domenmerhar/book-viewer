@@ -6,6 +6,7 @@ import toast from "react-hot-toast";
 import { SpinnerBig } from "../../utils/SpinnerBig";
 import { BooksData } from "../../Interface/Book";
 import { useInView } from "react-intersection-observer";
+import { Heading } from "../../utils/Heading";
 
 export const BookList = () => {
   const { data, error, isLoading, fetchNextPage } = useBooks();
@@ -13,7 +14,8 @@ export const BookList = () => {
 
   const invalidPage =
     data?.pages?.[0]?.count === undefined ||
-    data?.pages?.[-1]?.count === undefined;
+    data?.pages?.[0]?.count === 0 ||
+    (data?.pages?.[-1] !== undefined && data?.pages?.[-1]?.count === undefined);
 
   useEffect(() => {
     if (inView && !invalidPage) {
@@ -47,7 +49,16 @@ export const BookList = () => {
     <>
       <List itemWidth={300} renderFn={render} />
       <div ref={ref}>
-        {inView && !invalidPage ? <SpinnerBig loading /> : <h1>That's all</h1>}
+        {inView && !invalidPage ? (
+          <SpinnerBig loading />
+        ) : (
+          <div>
+            <Heading type="primary">All books found.</Heading>
+            <Heading type="secondary">
+              For more books please search for another title or author name.
+            </Heading>
+          </div>
+        )}
       </div>
     </>
   );
