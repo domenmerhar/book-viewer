@@ -8,6 +8,10 @@ import { BooksData } from "../../Interface/Book";
 import { useInView } from "react-intersection-observer";
 import { Heading } from "../../utils/Heading";
 
+interface InvalidPage {
+  detail: "Invalid page.";
+}
+
 export const BookList = () => {
   const { data, error, isLoading, fetchNextPage } = useBooks();
   const { ref, inView } = useInView();
@@ -15,7 +19,8 @@ export const BookList = () => {
   const invalidPage =
     data?.pages?.[0]?.count === undefined ||
     data?.pages?.[0]?.count === 0 ||
-    (data?.pages?.[-1] !== undefined && data?.pages?.[-1]?.count === undefined);
+    (data?.pages[data?.pages.length - 1] as unknown as InvalidPage)?.detail ===
+      "Invalid page.";
 
   useEffect(() => {
     if (inView && !invalidPage) {
