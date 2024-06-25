@@ -7,7 +7,6 @@ interface TitleAuthor {
 }
 
 export const getBooks = async ({ title, author, page }: TitleAuthor) => {
-  console.log(page);
   let url = `${GUTENDEX_URL}books/`;
 
   if (title || author)
