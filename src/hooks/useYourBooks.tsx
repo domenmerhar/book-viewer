@@ -44,16 +44,12 @@ export const YourBooksProvider: React.FC<yourBooksProviderProps> = ({
           });
 
         searchedBook.reading = searchedBook.finished = false;
+        searchedBook[location] = true;
 
         return prev.map((curr: LocalBook) => {
-          if (curr.id === searchedBook?.id) {
-            curr.reading = curr.finished = false;
-            return (curr[location] = true);
-          }
+          if (curr.id !== searchedBook.id) return curr;
 
-          return curr.id === searchedBook?.id
-            ? { ...curr, [location]: true }
-            : curr;
+          return searchedBook;
         });
       }
 
