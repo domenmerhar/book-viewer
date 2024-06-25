@@ -8,6 +8,7 @@ import { BookInfoCard } from "../features/BookDetails/BookInfoCard";
 import { Row } from "../utils/Row";
 import { LocalBook, useLocalStorageState } from "../hooks/useLocalStorageState";
 import { useParams } from "react-router-dom";
+import { useYourBooks } from "../hooks/useYourBooks";
 
 interface StatusTagProps {
   type: "wishlist" | "reading" | "finished";
@@ -42,12 +43,16 @@ const localBookStatuses = ["wishlist", "reading", "finished"];
 export const BookDetails = () => {
   const { book, error, isLoading } = useBook();
 
-  const [localBooks, setLocalBooks] = useLocalStorageState(null, "savedBooks");
-  const { id } = useParams<{ id: string }>();
+  const { getBook } = useYourBooks();
 
-  const localBook = localBooks?.find(
-    (book: LocalBook) => book.id === Number(id)
-  );
+  const { id } = useParams<{ id: string }>();
+  const [localBooks, setLocalBooks] = useLocalStorageState(null, "savedBooks");
+
+  // const localBook = localBooks?.find(
+  //   (book: LocalBook) => book.id === Number(id)
+  // );
+
+  const localBook = getBook(id!);
 
   if (error) return toast.error("An error occurred. Please try again later.");
 
