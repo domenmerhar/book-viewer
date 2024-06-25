@@ -6,6 +6,8 @@ interface yourBooksContextType {
   savedBooks: LocalBook[];
   setSavedBooks: React.Dispatch<unknown>;
   addBook: (id: string, location: locationType) => void;
+  getBook: (id: string) => LocalBook | undefined;
+  bookHasProperty: (id: string, location: locationType) => boolean;
 }
 
 interface yourBooksProviderProps {
@@ -66,13 +68,24 @@ export const YourBooksProvider: React.FC<yourBooksProviderProps> = ({
     });
   }
 
+  const getBook = (id: string) =>
+    savedBooks.find((curr: LocalBook) => curr.id === Number(id));
+
+  const bookHasProperty = (id: string, location: locationType) =>
+    savedBooks.find(
+      (curr: LocalBook) => curr.id === Number(id) && curr[location] === true
+    ) !== undefined;
+
   return (
-    <yourBooksContext.Provider value={{ savedBooks, setSavedBooks, addBook }}>
+    <yourBooksContext.Provider
+      value={{ savedBooks, setSavedBooks, addBook, getBook, bookHasProperty }}
+    >
       {children}
     </yourBooksContext.Provider>
   );
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useYourBooks = () => {
   const context = useContext(yourBooksContext);
 
