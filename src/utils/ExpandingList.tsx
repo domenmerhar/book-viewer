@@ -26,7 +26,7 @@ interface ContextType {
   setPosition: React.Dispatch<React.SetStateAction<Coordinates>>;
 }
 
-const expandingListContext = createContext<ContextType>({});
+const expandingListContext = createContext<ContextType>({} as ContextType);
 
 export const ExpandingList = ({ children }: ChildrenProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -52,7 +52,9 @@ const Button: React.FC<ButtonProps> = ({ children }) => {
   const { setIsOpen, setPosition } = useContext(expandingListContext);
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const rect = e.target.closest("button").getBoundingClientRect();
+    const rect = (e.target as Element)
+      .closest("button")!
+      .getBoundingClientRect();
 
     setPosition({
       x: e.screenX + 4,
