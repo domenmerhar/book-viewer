@@ -9,12 +9,14 @@ export const useSavedBooks = (type: category, savedBooks: LocalBook[]) => {
     .filter((book: LocalBook) => book[type])
     .map((book: LocalBook) => book.id);
 
+  const length = bookIds.length;
+
   const {
     data: dataApi,
     error,
     isLoading,
   } = useQuery({
-    queryKey: ["savedBooks", type],
+    queryKey: ["savedBooks", type, length],
     queryFn: () => getBooksById(bookIds),
   });
 
