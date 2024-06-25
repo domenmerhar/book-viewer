@@ -1,13 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Card } from "./Card";
 import { List } from "../../utils/List";
 import { useBooks } from "../../hooks/useBooks";
 import toast from "react-hot-toast";
 import { SpinnerBig } from "../../utils/SpinnerBig";
 import { BooksData } from "../../Interface/Book";
+import { useInView } from "react-intersection-observer";
 
 export const BookList = () => {
-  const { data, error, isLoading } = useBooks();
+  const { data, error, isLoading, fetchNextPage } = useBooks();
+  const { ref, inView } = useInView();
+
+  useEffect(() => {
+    if (inView) {
+      fetchNextPage();
+    }
+  }, [inView, fetchNextPage]);
 
   if (error) return toast.error("An error occurred");
 
@@ -29,5 +37,10 @@ export const BookList = () => {
       ))
     );
 
-  return <List itemWidth={300} renderFn={render} />;
+  return (
+    <>
+      <List itemWidth={300} renderFn={render} />
+      <div ref={ref}>{inView && <SpinnerBig loading />}</div>
+    </>
+  );
 };
