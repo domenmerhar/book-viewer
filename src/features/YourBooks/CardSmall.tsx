@@ -31,26 +31,28 @@ export const CardSmall: React.FC<CardSmallProps> = ({
   author,
 }) => {
   return (
-    <Holder width="415px">
-      <Row gap="16px">
-        <Image src={image} alt={title} />
-        <InfoWrapper>
-          <Column gap="8px">
-            <Heading type="primary">{title}</Heading>
-            <Heading type="secondary">{author}</Heading>
-          </Column>
-        </InfoWrapper>
+    <ExpandingList>
+      <Holder width="415px">
+        <Row gap="16px">
+          <Image src={image} alt={title} />
+          <InfoWrapper>
+            <Column gap="8px">
+              <Heading type="primary">{title}</Heading>
+              <Heading type="secondary">{author}</Heading>
+            </Column>
+          </InfoWrapper>
 
-        <ExpandingList.Button>
-          <ButtonSquare>
-            <HiOutlineDotsVertical size={24} />
-          </ButtonSquare>
-        </ExpandingList.Button>
+          <ExpandingList.Button>
+            <ButtonSquare>
+              <HiOutlineDotsVertical size={24} />
+            </ButtonSquare>
+          </ExpandingList.Button>
 
-        <ExpandingList.List>
-          <DropDownList id={id} />
-        </ExpandingList.List>
-      </Row>
-    </Holder>
+          <ExpandingList.List>
+            <DropDownList id={id} />
+          </ExpandingList.List>
+        </Row>
+      </Holder>
+    </ExpandingList>
   );
 };
