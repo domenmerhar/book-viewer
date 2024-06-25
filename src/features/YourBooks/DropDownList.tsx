@@ -1,6 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 import { listClickType } from "../../utils/ExpandingList";
+import {
+  HiOutlineBookOpen,
+  HiOutlineCheck,
+  HiOutlineTrash,
+} from "react-icons/hi";
 
 interface DropDownListProps {
   id: number;
@@ -18,6 +23,15 @@ const Ul = styled.ul`
 const Li = styled.li`
   padding: 10px 20px;
   color: var(--black);
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  & :first-child {
+    size: 2px;
+    font-size: 24px;
+  }
 `;
 
 export const DropDownList: React.FC<DropDownListProps> = ({
@@ -30,9 +44,18 @@ export const DropDownList: React.FC<DropDownListProps> = ({
 
   return (
     <Ul>
-      <Li onClick={handleClick}>Remove</Li>
-      <Li onClick={handleClick}>Add to reading</Li>
-      <Li onClick={handleClick}>Add to finished</Li>
+      <Li onClick={handleClick}>
+        <HiOutlineTrash />
+        <span>Remove</span>
+      </Li>
+      <Li onClick={handleClick}>
+        <HiOutlineBookOpen />
+        Add to reading
+      </Li>
+      <Li onClick={handleClick}>
+        <HiOutlineCheck />
+        Add to finished
+      </Li>
     </Ul>
   );
 };
