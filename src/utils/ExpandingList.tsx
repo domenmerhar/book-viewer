@@ -6,7 +6,7 @@ import React, {
 } from "react";
 
 interface ChildrenProps {
-  children: React.ReactNode[];
+  children: React.ReactNode[] | React.ReactNode;
 }
 
 interface ButtonProps {
@@ -37,7 +37,7 @@ const Button: React.FC<ButtonProps> = ({ children }) => {
 
   return children
     ? cloneElement(children as React.ReactElement, {
-        listClick: handleClick,
+        onClick: handleClick,
       })
     : null;
 };
@@ -45,9 +45,11 @@ const Button: React.FC<ButtonProps> = ({ children }) => {
 type listClickType = () => void;
 
 const List: React.FC<ButtonProps> = ({ children }) => {
-  const { setIsOpen } = useContext(expandingListContext);
+  const { isOpen, setIsOpen } = useContext(expandingListContext);
 
   const listClick: listClickType = () => setIsOpen!(false);
+
+  if (!isOpen) return null;
 
   return <>{cloneElement(children as React.ReactElement, { listClick })}</>;
 };
