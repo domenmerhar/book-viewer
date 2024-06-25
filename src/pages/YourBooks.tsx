@@ -39,14 +39,10 @@ export const YourBooks = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const params = Object.fromEntries(searchParams.entries());
-
-    // Update the 'sort' parameter while preserving others
     setSearchParams({ ...params, sort: e.target.value });
-    //setSearchParams({ sort: e.target.value });
   };
 
   const sort: sortType = (searchParams.get("sort") as sortType) || options[0];
-
   const sortedBooks = sortBooks(savedBooks, sort);
 
   return (
@@ -70,6 +66,7 @@ export const YourBooks = () => {
           sortedBooks.map((book: Book) => (
             <CardSmall
               key={book.id}
+              id={book.id}
               image={book.formats["image/jpeg"]}
               title={book.title}
               author={book.authors[0].name}
