@@ -42,7 +42,7 @@ export const Categories: React.FC<CategoryProps> = ({ categories }) => {
   const currentCategory = searchParams.get("category") || categories[0];
 
   return (
-    <Row>
+    <Row gap="8px">
       {categories.map((categoryItem) => {
         return (
           <Button
