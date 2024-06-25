@@ -10,6 +10,7 @@ import { Book } from "../Interface/Book";
 import { sortBooks, sortType } from "../utils/sortBooks";
 import { Row } from "../utils/Row";
 import { Heading } from "../utils/Heading";
+import ExpandingList from "../utils/ExpandingList";
 
 const options = [
   "added (oldest first)",
@@ -46,7 +47,7 @@ export const YourBooks = () => {
   const sortedBooks = sortBooks(savedBooks, sort);
 
   return (
-    <>
+    <ExpandingList>
       <Row justifyContent="space-between">
         <Categories categories={categories} />
 
@@ -74,6 +75,6 @@ export const YourBooks = () => {
           ))
         }
       />
-    </>
+    </ExpandingList>
   );
 };
