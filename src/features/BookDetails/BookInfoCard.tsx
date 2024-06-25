@@ -7,15 +7,12 @@ import { InfoParagraph } from "./InfoParagraph";
 import { HiDownload } from "react-icons/hi";
 import { Row } from "../../utils/Row";
 import { Link, useSearchParams } from "react-router-dom";
-import { LocalBook } from "../../hooks/useLocalStorageState";
 import toast from "react-hot-toast";
 import { SelectSearch } from "../../utils/SelectSearch";
 import { useYourBooks } from "../../hooks/useYourBooks";
 
 interface BookInfoCardProps {
   book: Book | undefined;
-  setSavedBooks: React.Dispatch<React.SetStateAction<LocalBook[]>>;
-  savedBooks: LocalBook[];
 }
 
 const ButtonGradient = styled.button`
