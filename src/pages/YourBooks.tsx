@@ -53,7 +53,7 @@ export const YourBooks = () => {
   };
 
   return (
-    <ExpandingList>
+    <>
       <Row justifyContent="space-between">
         <Categories categories={categories} />
 
@@ -81,6 +81,6 @@ export const YourBooks = () => {
           ))
         }
       />
-    </ExpandingList>
+    </>
   );
 };
