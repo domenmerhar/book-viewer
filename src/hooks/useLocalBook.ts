@@ -1,20 +1,13 @@
-import { useState } from "react";
-import { LocalBook } from "./useLocalStorageState";
+import { LocalBook, useLocalStorageState } from "./useLocalStorageState";
 import { useParams } from "react-router-dom";
 
 export function useLocalBook() {
   const { id } = useParams<{ id: string }>();
 
-  const [value] = useState(function () {
-    const storedValue = localStorage.getItem("savedBooks");
-    const localBooks: LocalBook[] = storedValue
-      ? JSON.parse(storedValue)
-      : null;
+  const [savedBooks] = useLocalStorageState([], "savedBooks");
+  console.log(savedBooks);
 
-    if (!localBooks) return null;
+  const book = savedBooks.find((curr: LocalBook) => curr.id === Number(id));
 
-    return localBooks.find((book) => book.id === Number(id));
-  });
-
-  return value;
+  return book;
 }
