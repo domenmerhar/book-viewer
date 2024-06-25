@@ -4,6 +4,12 @@ import React, {
   useContext,
   cloneElement,
 } from "react";
+import styled from "styled-components";
+
+interface Coordinates {
+  x: number;
+  y: number;
+}
 
 interface ChildrenProps {
   children: React.ReactNode[] | React.ReactNode;
@@ -16,42 +22,72 @@ interface ButtonProps {
 interface ContextType {
   isOpen?: boolean;
   setIsOpen?: React.Dispatch<React.SetStateAction<boolean>>;
+  position: Coordinates;
+  setPosition: React.Dispatch<React.SetStateAction<Coordinates>>;
 }
 
 const expandingListContext = createContext<ContextType>({});
 
 export const ExpandingList = ({ children }: ChildrenProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [position, setPosition] = useState<Coordinates>({ x: 0, y: 0 });
 
   return (
-    <expandingListContext.Provider value={{ isOpen, setIsOpen }}>
+    <expandingListContext.Provider
+      value={{ isOpen, setIsOpen, position, setPosition }}
+    >
       {children}
     </expandingListContext.Provider>
   );
 };
 
+const Div = styled.div<Coordinates>`
+  position: fixed;
+
+  left: ${(props) => `${props.x}px`};
+  top: ${(props) => `${props.y}px`};
+`;
+
 const Button: React.FC<ButtonProps> = ({ children }) => {
-  const { setIsOpen } = useContext(expandingListContext);
+  const { setIsOpen, setPosition } = useContext(expandingListContext);
 
-  const handleClick = () => setIsOpen!((prev: boolean) => !prev);
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const rect = e.target.closest("button").getBoundingClientRect();
 
-  return children
-    ? cloneElement(children as React.ReactElement, {
-        onClick: handleClick,
-      })
-    : null;
+    setPosition({
+      x: e.screenX + 4,
+      y: rect.y + rect.height / 2,
+    });
+
+    setIsOpen!((prev: boolean) => !prev);
+  };
+
+  return (
+    <>
+      {children
+        ? cloneElement(children as React.ReactElement, {
+            onClick: handleClick,
+          })
+        : null}
+    </>
+  );
 };
 
-type listClickType = () => void;
+export type listClickType = () => void;
 
 const List: React.FC<ButtonProps> = ({ children }) => {
   const { isOpen, setIsOpen } = useContext(expandingListContext);
+  const { position } = useContext(expandingListContext);
 
   const listClick: listClickType = () => setIsOpen!(false);
 
   if (!isOpen) return null;
 
-  return <>{cloneElement(children as React.ReactElement, { listClick })}</>;
+  return (
+    <Div x={position.x} y={position.y}>
+      {cloneElement(children as React.ReactElement, { listClick })}
+    </Div>
+  );
 };
 
 ExpandingList.Button = Button;
