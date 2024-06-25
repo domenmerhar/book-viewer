@@ -1,7 +1,19 @@
 import { GUTENDEX_URL } from "./config";
 
-export const getBooks = async () => {
-  const response = await fetch(`${GUTENDEX_URL}books/`);
+interface TitleAuthor {
+  title: string;
+  author: string;
+}
+
+export const getBooks = async ({ title, author }: TitleAuthor) => {
+  let url = `${GUTENDEX_URL}books/`;
+
+  if (title || author)
+    url = `${url}?search=${title.toLowerCase()}${
+      author && `%20${author.toLowerCase()}`
+    }`;
+
+  const response = await fetch(url);
   const data = await response.json();
   return data;
 };
