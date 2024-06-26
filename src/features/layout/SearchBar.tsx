@@ -1,7 +1,6 @@
-import { useRef, useState } from "react";
 import { HiSearch } from "react-icons/hi";
-import { useNavigate, useSearchParams } from "react-router-dom";
 import styled, { css } from "styled-components";
+import { useSearchBar } from "./SearchBar.hooks";
 
 interface StyledInputProps {
   styleType: "primary" | "secondary";
@@ -80,24 +79,8 @@ const Error = styled.p`
 `;
 
 export const SearchBar = () => {
-  const [title, setTitle] = useState<string>("");
-  const [author, setAuthor] = useState<string>("");
-  const navigate = useNavigate();
-
-  const ref = useRef<HTMLParagraphElement>(null);
-
-  function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-
-    if (!title && !author) return ref.current?.classList.add("visible");
-
-    const searchParams = { ...(title && { title }), ...(author && { author }) };
-
-    navigate({
-      pathname: "/books",
-      search: `?${new URLSearchParams(searchParams).toString()}`,
-    });
-  }
+  const { title, setTitle, author, setAuthor, ref, handleSubmit } =
+    useSearchBar();
 
   return (
     <Form>
