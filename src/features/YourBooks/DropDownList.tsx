@@ -19,6 +19,16 @@ const Ul = styled.ul`
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
   border-radius: 10px;
   width: 250px;
+
+  & :first-child {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+
+  & :last-child {
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+  }
 `;
 
 const Li = styled.li`
@@ -29,9 +39,17 @@ const Li = styled.li`
   align-items: center;
   gap: 12px;
 
+  overflow: hidden;
+  transition: background-color 200ms;
+
   & :first-child {
     size: 2px;
     font-size: 24px;
+  }
+
+  &:hover {
+    background-color: var(--gray-3);
+    cursor: pointer;
   }
 `;
 
