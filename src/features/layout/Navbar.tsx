@@ -27,14 +27,14 @@ const StyledNavLink = styled(NavLink)`
 
   &.active * {
     color: var(--blue-8) !important;
-    fill: var(--gray-8);
+    fill: var(--blue-8);
   }
 
   & > :hover {
     transform: scale(1.1);
 
-    color: var(--gray-3);
-    fill: var(--gray-3);
+    color: var(--blue-8);
+    fill: var(--blue-8);
   }
 `;
 
