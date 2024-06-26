@@ -6,8 +6,7 @@ import {
   HiOutlineCheck,
   HiOutlineTrash,
 } from "react-icons/hi";
-import { bookLocationType, useYourBooks } from "../../hooks/useYourBooks";
-import { useSearchParams } from "react-router-dom";
+import { useDropDownList } from "./DropDownList.hooks";
 
 interface DropDownListProps {
   id: number;
@@ -40,28 +39,10 @@ export const DropDownList: React.FC<DropDownListProps> = ({
   id,
   listClick,
 }) => {
-  const [searchParams] = useSearchParams();
-  const category: bookLocationType =
-    (searchParams.get("category") as bookLocationType) || "wishlist";
-
-  const { removeBookCategory, addBook, getBook } = useYourBooks();
-
-  const book = getBook(`${id}`);
-
-  const handleDelete = () => {
-    removeBookCategory(
-      `${id}`,
-      searchParams.get("category") as bookLocationType
-    );
-    listClick!();
-  };
-
-  const handleAdd = (categoryToAdd: bookLocationType) => {
-    return () => {
-      addBook(`${id}`, categoryToAdd);
-      listClick!();
-    };
-  };
+  const { book, handleAdd, handleDelete, category } = useDropDownList({
+    id,
+    listClick,
+  });
 
   return (
     <Ul>
