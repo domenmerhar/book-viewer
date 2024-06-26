@@ -1,19 +1,23 @@
 import { Row } from "../../utils/Row";
 import { Categories } from "./Categories";
-import { Heading } from "../../utils/Heading";
-import { SelectSearch } from "../../utils/SelectSearch";
 import { useSearchParams } from "react-router-dom";
 import { sortType } from "../../utils/sortBooks";
+import { SortSelect } from "../../utils/SortSelect";
 
 const categories = ["wishlist", "reading", "finished"];
 
-const options = [
-  "added (oldest first)",
-  "added (newest first)",
-  "oldest",
-  "youngest",
-  "title",
-  "author",
+interface Options {
+  value: string;
+  text?: string;
+}
+
+const options: Options[] = [
+  { value: "added (oldest first)" },
+  { value: "added (newest first)" },
+  { value: "oldest" },
+  { value: "youngest" },
+  { value: "title" },
+  { value: "author" },
 ];
 
 export const SortFilter = () => {
@@ -30,14 +34,11 @@ export const SortFilter = () => {
     <Row justifyContent="space-between">
       <Categories categories={categories} />
 
-      <Row gap="16px" alignItems="center">
-        <Heading type="secondary">Sort by: </Heading>
-        <SelectSearch
-          defaultValue={sort}
-          values={options}
-          onChange={handleChange}
-        />
-      </Row>
+      <SortSelect
+        defaultValue={sort}
+        options={options}
+        onChange={handleChange}
+      />
     </Row>
   );
 };
