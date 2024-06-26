@@ -2,9 +2,14 @@ import React from "react";
 import { AddOption } from "../features/BookDetails/AddOption";
 import styled from "styled-components";
 
+interface Options {
+  value: string;
+  text?: string;
+}
+
 interface SelectSearchParams {
   onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
-  values: string[];
+  values: Options[];
   defaultValue: string;
 }
 
@@ -25,8 +30,8 @@ export const SelectSearch: React.FC<SelectSearchParams> = ({
 }) => {
   return (
     <Select onChange={onChange} defaultValue={defaultValue}>
-      {values.map((value) => (
-        <AddOption key={value} collection={value} />
+      {values.map(({ value, text }) => (
+        <AddOption key={value} value={value} text={text} />
       ))}
     </Select>
   );
