@@ -21,7 +21,7 @@ const StatusTag = styled.span<StatusTagProps>`
   color: var(--white);
   font-size: 14px;
   letter-spacing: 4px;
-  padding: 8px 8px;
+  padding: 12px 16px;
   border-radius: 1000px;
   max-height: 40px;
 
@@ -35,6 +35,14 @@ const StatusTag = styled.span<StatusTagProps>`
 
 const Image = styled.img`
   width: 300px;
+`;
+
+const TagHolder = styled.div`
+  padding-top: 12px;
+`;
+
+const HeadingHolder = styled.div`
+  width: 70%;
 `;
 
 const localBookStatuses = ["wishlist", "reading", "finished"];
@@ -52,14 +60,23 @@ export const BookDetails = () => {
 
   return (
     <>
-      <Row>
-        <HeadingGradient>{book?.title}</HeadingGradient>
-        {localBookStatuses.map(
-          (status) =>
-            localBook?.[status] && (
-              <StatusTag type={status as bookLocationType}>{status}</StatusTag>
-            )
-        )}
+      <Row gap="16px" justifyContent="space-between">
+        <HeadingHolder>
+          <HeadingGradient>{book?.title}</HeadingGradient>
+        </HeadingHolder>
+
+        <TagHolder>
+          <Row gap="8px">
+            {localBookStatuses.map(
+              (status) =>
+                localBook?.[status] && (
+                  <StatusTag type={status as bookLocationType}>
+                    {status}
+                  </StatusTag>
+                )
+            )}
+          </Row>
+        </TagHolder>
       </Row>
       <Row gap="64px" justifyContent="space-around">
         <Holder>
