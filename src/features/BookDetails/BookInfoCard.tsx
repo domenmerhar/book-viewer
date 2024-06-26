@@ -43,6 +43,10 @@ const Flex = styled.div`
   gap: 8px;
 `;
 
+const languageNames = new Intl.DisplayNames(["en"], {
+  type: "language",
+});
+
 export const BookInfoCard: React.FC<BookInfoCardProps> = ({ book }) => {
   const { handleChange, handleClick, defaultValue } = useBookInfoCard({ book });
 
@@ -94,7 +98,7 @@ export const BookInfoCard: React.FC<BookInfoCardProps> = ({ book }) => {
               renderFn={() =>
                 book?.languages.map((language) => (
                   <Heading type="secondary" key={language}>
-                    {language}
+                    {languageNames.of(language)}
                   </Heading>
                 ))
               }
