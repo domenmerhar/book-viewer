@@ -3,6 +3,8 @@ import React, {
   createContext,
   useContext,
   cloneElement,
+  useEffect,
+  useCallback,
 } from "react";
 import styled from "styled-components";
 import { useOutsideClick } from "../hooks/useOutsideClick";
@@ -34,7 +36,17 @@ export const ExpandingList = ({ children }: ChildrenProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [position, setPosition] = useState<Coordinates>({ x: 0, y: 0 });
 
-  const close = () => setIsOpen(false);
+  const close = useCallback(() => setIsOpen(false), [setIsOpen]);
+
+  useEffect(() => {
+    console.log("effect");
+
+    document.addEventListener("scroll", close);
+
+    return () => {
+      document.removeEventListener("scroll", close);
+    };
+  }, [close]);
 
   return (
     <expandingListContext.Provider
@@ -61,7 +73,7 @@ const Button: React.FC<ButtonProps> = ({ children }) => {
       .getBoundingClientRect();
 
     setPosition({
-      x: e.screenX + 4,
+      x: rect.x + rect.width / 2,
       y: rect.y + rect.height / 2,
     });
 
