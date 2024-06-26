@@ -26,8 +26,8 @@ const StyledNavLink = styled(NavLink)`
   }
 
   &.active * {
-    color: var(--gray-3) !important;
-    fill: var(--gray-3);
+    color: var(--blue-8) !important;
+    fill: var(--gray-8);
   }
 
   & > :hover {
