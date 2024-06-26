@@ -2,7 +2,8 @@ import React from "react";
 import styled from "styled-components";
 
 interface AddOptionProps {
-  collection: string;
+  value: string;
+  text?: string;
 }
 
 const Option = styled.option`
@@ -10,7 +11,8 @@ const Option = styled.option`
   color: var(--black);
 `;
 
-export const AddOption: React.FC<AddOptionProps> = ({ collection }) => {
-  const optionText = collection[0].toUpperCase() + collection.slice(1);
-  return <Option value={collection}>{optionText}</Option>;
+export const AddOption: React.FC<AddOptionProps> = ({ value, text }) => {
+  const optionText = value[0].toUpperCase() + value.slice(1);
+
+  return <Option value={value}>{text ? text : optionText}</Option>;
 };
