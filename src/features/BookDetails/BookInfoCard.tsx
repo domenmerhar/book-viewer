@@ -58,13 +58,13 @@ export const BookInfoCard: React.FC<BookInfoCardProps> = ({ book }) => {
             <InfoParagraph
               title="Written By"
               renderFn={() =>
-                book?.authors.map((author) => (
+                book?.authors?.map((author) => (
                   <Heading
                     type="secondary"
-                    key={author.name}
+                    key={author?.name}
                     color="rgba(0, 0, 0, 0.75)"
                   >
-                    {author.name}
+                    {author?.name}
                   </Heading>
                 ))
               }
@@ -117,7 +117,11 @@ export const BookInfoCard: React.FC<BookInfoCardProps> = ({ book }) => {
           <ButtonGradient onClick={handleClick}>Add to</ButtonGradient>
           <SelectSearch
             onChange={handleChange}
-            values={["wishlist", "reading", "finished"]}
+            values={[
+              { value: "wishlist" },
+              { value: "reading" },
+              { value: "finished" },
+            ]}
             defaultValue={defaultValue}
           />
         </Row>
