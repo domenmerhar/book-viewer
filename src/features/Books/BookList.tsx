@@ -22,7 +22,7 @@ export const BookList = () => {
         <li key={book.id}>
           <Card
             title={book.title}
-            subTitle={book.authors[0].name}
+            subTitle={book?.authors[0]?.name}
             imageSource={book.formats["image/jpeg"]}
             to={`/books/${book.id}`}
           />
