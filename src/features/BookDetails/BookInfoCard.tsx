@@ -1,15 +1,14 @@
 import styled from "styled-components";
-import { Book } from "../../Interface/Book";
+import { Book } from "../../Interface/book";
 import { Column } from "../../utils/BookDetails";
 import { Heading } from "../../utils/Heading";
 import { Holder } from "../../utils/Holder";
 import { InfoParagraph } from "./InfoParagraph";
 import { HiDownload } from "react-icons/hi";
 import { Row } from "../../utils/Row";
-import { Link, useSearchParams } from "react-router-dom";
-import toast from "react-hot-toast";
+import { Link } from "react-router-dom";
 import { SelectSearch } from "../../utils/SelectSearch";
-import { useYourBooks } from "../../hooks/useYourBooks";
+import { useBookInfoCard } from "./BookInfoCard.hooks";
 
 interface BookInfoCardProps {
   book: Book | undefined;
@@ -44,27 +43,8 @@ const Flex = styled.div`
   gap: 8px;
 `;
 
-type addParam = "wishlist" | "reading" | "finished";
-
 export const BookInfoCard: React.FC<BookInfoCardProps> = ({ book }) => {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const { addBook, bookHasProperty } = useYourBooks();
-
-  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSearchParams({ add: e.target.value });
-
-    if (bookHasProperty(book!.id.toString(), e.target.value as addParam))
-      toast.error(`Book already exists in ${e.target.value}.`);
-  };
-
-  const handleClick = () => {
-    const location: addParam =
-      (searchParams.get("add") as addParam) || "wishlist";
-
-    console.log(location);
-
-    addBook(book!.id.toString(), location);
-  };
+  const { handleChange, handleClick, defaultValue } = useBookInfoCard({ book });
 
   return (
     <Holder
@@ -138,7 +118,7 @@ export const BookInfoCard: React.FC<BookInfoCardProps> = ({ book }) => {
           <SelectSearch
             onChange={handleChange}
             values={["wishlist", "reading", "finished"]}
-            defaultValue={searchParams.get("add") || "wishlist"}
+            defaultValue={defaultValue}
           />
         </Row>
       </div>
