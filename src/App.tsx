@@ -7,6 +7,7 @@ import { BookDetails } from "./pages/BookDetails";
 import { YourBooks } from "./pages/YourBooks";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { PageNotFound } from "./pages/PageNotFound";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -35,7 +36,7 @@ function App() {
               <Route path="/your-books" element={<YourBooks />} />
             </Route>
 
-            <Route path="*" element={<p>Invalid path</p>} />
+            <Route path="*" element={<PageNotFound />} />
           </Routes>
         </BrowserRouter>
       </QueryClientProvider>
