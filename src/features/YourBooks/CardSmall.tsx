@@ -42,7 +42,7 @@ export const CardSmall: React.FC<CardSmallProps> = ({
     <ExpandingList>
       <Holder width="415px">
         <Row gap="16px">
-          <NavLink to={`/books/${id}`}>
+          <NavLink to={`/books/${id}&author=${author}`}>
             <Image src={image} alt={title} />
           </NavLink>
           <InfoWrapper>
