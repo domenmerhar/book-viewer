@@ -48,7 +48,7 @@ const HeadingHolder = styled.div`
 `;
 
 const AuthorHolder = styled.div`
-  margin: 64px 0 16px 0;
+  margin: 48px 0 16px 0;
 `;
 
 const localBookStatuses = ["wishlist", "reading", "finished"];
@@ -67,7 +67,8 @@ export const BookDetails = () => {
 
   if (isLoading) return <SpinnerBig loading={isLoading} />;
 
-  if (book?.detail) return <Heading type="primary">No book found</Heading>;
+  if ((book as { detail?: string })?.detail)
+    return <Heading type="primary">No book found</Heading>;
 
   return (
     <>
@@ -80,7 +81,8 @@ export const BookDetails = () => {
           <Row gap="8px">
             {localBookStatuses.map(
               (status) =>
-                localBook?.[status] && (
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                (localBook as any)?.[status] && (
                   <StatusTag type={status as bookLocationType}>
                     {status}
                   </StatusTag>
