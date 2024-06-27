@@ -22,9 +22,6 @@ export const useBookInfoCard = ({ book }: { book: Book | undefined }) => {
   const handleClick = () => {
     const location: addParam =
       (searchParams.get("add") as addParam) || "wishlist";
-
-    console.log(location);
-
     addBook(book!.id.toString(), location);
   };
 
