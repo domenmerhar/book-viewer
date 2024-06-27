@@ -13,15 +13,17 @@ export const YourBooksList = () => {
     <List
       itemWidth={415}
       renderFn={() =>
-        sortedBooks.map((book: Book) => (
-          <CardSmall
-            key={book.id}
-            id={book.id}
-            image={book.formats["image/jpeg"]}
-            title={book.title}
-            author={book.authors[0].name}
-          />
-        ))
+        sortedBooks.map((book: Book) => {
+          return (
+            <CardSmall
+              key={book?.id}
+              id={book?.id}
+              image={book?.formats["image/jpeg"]}
+              title={book?.title}
+              author={book?.authors[0].name}
+            />
+          );
+        })
       }
     />
   );
