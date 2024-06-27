@@ -51,6 +51,11 @@ const AuthorHolder = styled.div`
   margin: 48px 0 16px 0;
 `;
 
+const ImageHolder = styled.div`
+  height: 450px;
+  width: 300px;
+`;
+
 const localBookStatuses = ["wishlist", "reading", "finished"];
 
 export const BookDetails = () => {
@@ -93,7 +98,11 @@ export const BookDetails = () => {
       </Row>
       <Row gap="64px" justifyContent="space-around">
         <Holder>
-          <Image src={book?.formats["image/jpeg"]} alt={book?.title} />
+          {book?.formats["image/jpeg"] ? (
+            <Image src={book?.formats["image/jpeg"]} alt={book?.title} />
+          ) : (
+            <ImageHolder />
+          )}
         </Holder>
 
         <BookInfoCard book={book} />
