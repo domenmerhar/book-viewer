@@ -4,7 +4,7 @@ interface HolderProps {
   width?: string;
   height?: string;
   justifycontent?: string;
-  alignItems?: string;
+  align?: string;
   isColumn?: boolean;
 }
 
@@ -12,7 +12,7 @@ export const Holder = styled.div<HolderProps>`
   ${(props) => props.width && `width: ${props.width};`}
   ${(props) => props.height && `height: ${props.height};`}
   ${(props) => `justify-content: ${props.justifycontent || "center"};`}
-  ${(props) => `align-items: ${props.alignItems || "center"};`}
+  ${(props) => `align-items: ${props.align || "center"};`}
   ${(props) => props.isColumn && `flex-direction: column;`}
 
 
