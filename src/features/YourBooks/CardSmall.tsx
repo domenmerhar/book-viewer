@@ -35,7 +35,6 @@ const InfoWrapper = styled.div`
 const Placeholder = styled.div`
   width: 150px;
   height: 250px;
-  background-color: var(--gray-5);
 `;
 
 export const CardSmall: React.FC<CardSmallProps> = ({
