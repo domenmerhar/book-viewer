@@ -9,16 +9,18 @@ interface TitleAuthor {
 
 export const getBooks = async ({ title, author, sort, page }: TitleAuthor) => {
   let url = `${GUTENDEX_URL}books/`;
-  url = `${url}?page=${page}`;
 
-  if (title || author)
-    url = `${url}&search=${title.toLowerCase()}${
-      author && `%20${author.toLowerCase()}&page=${page}`
-    }`;
+  if (page !== 1) url = String(page);
+  else {
+    url = `${url}?page=${page}`;
 
-  if (sort) url = `${url}&sort=${sort}`;
+    if (title || author)
+      url = `${url}&search=${title.toLowerCase()}${
+        author && `%20${author.toLowerCase()}&page=${page}`
+      }`;
 
-  console.log(url);
+    if (sort) url = `${url}&sort=${sort}`;
+  }
 
   const response = await fetch(url);
   const data = await response.json();
