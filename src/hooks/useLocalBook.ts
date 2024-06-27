@@ -5,7 +5,6 @@ export function useLocalBook() {
   const { id } = useParams<{ id: string }>();
 
   const [savedBooks] = useLocalStorageState([], "savedBooks");
-  console.log(savedBooks);
 
   const book = savedBooks.find((curr: LocalBook) => curr.id === Number(id));
 
