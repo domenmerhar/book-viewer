@@ -31,7 +31,7 @@ export const SortFilter = () => {
   };
 
   return (
-    <Row justifyContent="space-between">
+    <Row justifycontent="space-between">
       <Categories categories={categories} />
 
       <SortSelect

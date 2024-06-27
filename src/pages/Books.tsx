@@ -31,7 +31,7 @@ export const Books = () => {
   return (
     <>
       <SelectHolder>
-        <Row justifyContent="flex-end">
+        <Row justifycontent="flex-end">
           <SortSelect
             defaultValue={defaultValue}
             onChange={handleChange}

@@ -10,7 +10,7 @@ type flexAlignJustify =
 
 interface RowProps {
   gap?: string;
-  justifyContent?: flexAlignJustify;
+  justifycontent?: flexAlignJustify;
   alignItems?: flexAlignJustify;
 }
 
@@ -20,6 +20,6 @@ export const Row = styled.div<RowProps>`
 
   ${(props) => props.gap && `gap: ${props.gap};`}
   ${(props) =>
-    props.justifyContent && `justify-content: ${props.justifyContent};`}
+    props.justifycontent && `justify-content: ${props.justifycontent};`}
     ${(props) => props.alignItems && `align-items: ${props.alignItems};`}
 `;

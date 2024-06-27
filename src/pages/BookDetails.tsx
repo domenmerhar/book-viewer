@@ -77,7 +77,7 @@ export const BookDetails = () => {
 
   return (
     <>
-      <Row gap="16px" justifyContent="space-between">
+      <Row gap="16px" justifycontent="space-between">
         <HeadingHolder>
           <HeadingGradient>{book?.title}</HeadingGradient>
         </HeadingHolder>
@@ -96,7 +96,7 @@ export const BookDetails = () => {
           </Row>
         </TagHolder>
       </Row>
-      <Row gap="64px" justifyContent="space-around">
+      <Row gap="64px" justifycontent="space-around">
         <Holder>
           {book?.formats["image/jpeg"] ? (
             <Image src={book?.formats["image/jpeg"]} alt={book?.title} />

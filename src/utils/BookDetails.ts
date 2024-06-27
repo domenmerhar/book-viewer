@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 interface ColumnProps {
   gap?: string;
-  justifyContent?: string;
+  justifycontent?: string;
 }
 
 export const Column = styled.div<ColumnProps>`
@@ -11,5 +11,5 @@ export const Column = styled.div<ColumnProps>`
 
   ${(props) => props.gap && `gap: ${props.gap};`}
   ${(props) =>
-    props.justifyContent && `justify-content: ${props.justifyContent};`}
+    props.justifycontent && `justify-content: ${props.justifycontent};`}
 `;

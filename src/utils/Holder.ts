@@ -3,7 +3,7 @@ import styled from "styled-components";
 interface HolderProps {
   width?: string;
   height?: string;
-  justifyContent?: string;
+  justifycontent?: string;
   alignItems?: string;
   isColumn?: boolean;
 }
@@ -11,7 +11,7 @@ interface HolderProps {
 export const Holder = styled.div<HolderProps>`
   ${(props) => props.width && `width: ${props.width};`}
   ${(props) => props.height && `height: ${props.height};`}
-  ${(props) => `justify-content: ${props.justifyContent || "center"};`}
+  ${(props) => `justify-content: ${props.justifycontent || "center"};`}
   ${(props) => `align-items: ${props.alignItems || "center"};`}
   ${(props) => props.isColumn && `flex-direction: column;`}
 

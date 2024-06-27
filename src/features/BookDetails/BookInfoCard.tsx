@@ -52,7 +52,7 @@ export const BookInfoCard: React.FC<BookInfoCardProps> = ({ book }) => {
 
   return (
     <Holder
-      justifyContent="space-between"
+      justifycontent="space-between"
       alignItems="flex-start"
       isColumn={true}
     >
