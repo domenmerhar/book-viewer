@@ -8,6 +8,8 @@ import { BookInfoCard } from "../features/BookDetails/BookInfoCard";
 import { Row } from "../utils/Row";
 import { useParams } from "react-router-dom";
 import { bookLocationType, useYourBooks } from "../hooks/useYourBooks";
+import { Heading } from "../utils/Heading";
+import { BookList } from "../features/Books/BookList";
 
 interface StatusTagProps {
   type: "wishlist" | "reading" | "finished";
@@ -51,12 +53,16 @@ export const BookDetails = () => {
   const { book, error, isLoading } = useBook();
   const { id } = useParams<{ id: string }>();
 
+  const idString = id?.split("&")[0];
+
   const { getBook } = useYourBooks();
-  const localBook = getBook(id!);
+  const localBook = getBook(idString!);
 
   if (error) return toast.error("An error occurred. Please try again later.");
 
   if (isLoading) return <SpinnerBig loading={isLoading} />;
+
+  if (book?.detail) return <Heading type="primary">No book found</Heading>;
 
   return (
     <>
@@ -85,6 +91,8 @@ export const BookDetails = () => {
 
         <BookInfoCard book={book} />
       </Row>
+
+      <BookList />
     </>
   );
 };
