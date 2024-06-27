@@ -1,4 +1,4 @@
-import { Book } from "../Interface/Book";
+import { Book } from "../Interface/book";
 
 export type sortType =
   | "added (oldest first)"
