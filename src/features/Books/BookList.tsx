@@ -6,10 +6,14 @@ import { SpinnerBig } from "../../utils/SpinnerBig";
 import { BooksData } from "../../Interface/book";
 import { Heading } from "../../utils/Heading";
 import { useBookList } from "./BookList.hooks";
+import styled from "styled-components";
+
+const HeadingHolder = styled.div`
+  margin-top: 64px;
+`;
 
 export const BookList = () => {
-  const { data, pages, error, isLoading, invalidPage, ref, inView } =
-    useBookList();
+  const { data, pages, error, isLoading, invalidPage, ref } = useBookList();
 
   if (error) return toast.error("An error occurred");
   if (isLoading) return <SpinnerBig loading={isLoading} />;
@@ -34,15 +38,15 @@ export const BookList = () => {
     <>
       <List itemWidth={300} renderFn={render} />
       <div ref={ref}>
-        {inView && !invalidPage ? (
+        {!invalidPage ? (
           <SpinnerBig loading />
         ) : (
-          <div>
+          <HeadingHolder>
             <Heading type="primary">All books found.</Heading>
             <Heading type="secondary">
               For more books please search for another title or author name.
             </Heading>
-          </div>
+          </HeadingHolder>
         )}
       </div>
     </>
