@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { getBook } from "../api/getBook";
 import { useParams } from "react-router-dom";
-import { Book } from "../Interface/Book";
+import { Book } from "../Interface/book";
 
 export const useBook = () => {
   const { id } = useParams<{ id: string }>();
@@ -17,7 +17,7 @@ export const useBook = () => {
   } = useQuery({
     queryKey: ["book", id],
     queryFn: ({ queryKey }) => {
-      const bookId = queryKey[1];
+      const bookId = queryKey[1]?.split("&")[0];
 
       if (!bookId) {
         throw new Error("Book ID is undefined");
