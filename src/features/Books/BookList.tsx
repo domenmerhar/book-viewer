@@ -36,7 +36,7 @@ export const BookList = () => {
 
   return (
     <>
-      <List itemWidth={300} renderFn={render} />
+      <List width={300} renderFn={render} />
       <div ref={ref}>
         {!invalidPage ? (
           <SpinnerBig loading />

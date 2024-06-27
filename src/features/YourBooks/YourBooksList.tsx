@@ -11,7 +11,7 @@ export const YourBooksList = () => {
 
   return (
     <List
-      itemWidth={415}
+      width={415}
       renderFn={() =>
         sortedBooks.map((book: Book) => {
           return (
