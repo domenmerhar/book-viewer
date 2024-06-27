@@ -24,7 +24,7 @@ export const BookList = () => {
             title={book.title}
             subTitle={book?.authors[0]?.name}
             imageSource={book.formats["image/jpeg"]}
-            to={`/books/${book.id}`}
+            to={`/books/${book.id}&author=${book?.authors[0]?.name}`}
           />
         </li>
       ))
