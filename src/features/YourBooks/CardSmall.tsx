@@ -12,7 +12,7 @@ import { NavLink } from "react-router-dom";
 
 interface CardSmallProps {
   id: number;
-  image: string;
+  image: string | null | undefined;
   title: string;
   author: string;
 }
@@ -32,6 +32,12 @@ const InfoWrapper = styled.div`
   margin-top: 4px;
 `;
 
+const Placeholder = styled.div`
+  width: 150px;
+  height: 250px;
+  background-color: var(--gray-5);
+`;
+
 export const CardSmall: React.FC<CardSmallProps> = ({
   id,
   image,
@@ -43,7 +49,7 @@ export const CardSmall: React.FC<CardSmallProps> = ({
       <Holder width="415px">
         <Row gap="16px">
           <NavLink to={`/books/${id}&author=${author}`}>
-            <Image src={image} alt={title} />
+            {image ? <Image src={image} alt={title} /> : <Placeholder />}
           </NavLink>
           <InfoWrapper>
             <Column gap="8px">
