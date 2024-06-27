@@ -5,9 +5,9 @@ import { getBooksById } from "../api/getBooksById";
 type category = "wishlist" | "reading" | "finished";
 
 export const useSavedBooks = (type: category, savedBooks: LocalBook[]) => {
-  const bookIds: { id: string }[] = savedBooks
+  const bookIds: string[] = savedBooks
     .filter((book: LocalBook) => book[type])
-    .map((book: LocalBook) => book.id);
+    .map((book: LocalBook) => book.id) as unknown as string[];
 
   const length = bookIds.length;
 
