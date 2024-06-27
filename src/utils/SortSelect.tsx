@@ -20,7 +20,7 @@ export const SortSelect: React.FC<SortSelectParams> = ({
   defaultValue,
 }) => {
   return (
-    <Row gap="16px" alignItems="center">
+    <Row gap="16px" align="center">
       <Heading type="secondary">Sort by: </Heading>
       <SelectSearch
         defaultValue={defaultValue}
