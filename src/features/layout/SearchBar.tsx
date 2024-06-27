@@ -3,7 +3,7 @@ import styled, { css } from "styled-components";
 import { useSearchBar } from "./SearchBar.hooks";
 
 interface StyledInputProps {
-  styleType: "primary" | "secondary";
+  styledtype: "primary" | "secondary";
 }
 
 const Form = styled.form`
@@ -22,16 +22,16 @@ const StyledInput = styled.input<StyledInputProps>`
   padding: 6px;
   padding-left: 12px;
 
-  ${({ styleType }) =>
-    styleType === "primary" &&
+  ${({ styledtype }) =>
+    styledtype === "primary" &&
     css`
       background-color: white;
       min-width: 200px;
       max-width: 300px;
     `};
 
-  ${({ styleType }) =>
-    styleType === "secondary" &&
+  ${({ styledtype }) =>
+    styledtype === "secondary" &&
     css`
       transform: translateX(-25px);
       background-color: var(--gray-3);
@@ -85,7 +85,7 @@ export const SearchBar = () => {
   return (
     <Form>
       <StyledInput
-        styleType="primary"
+        styledtype="primary"
         type="text"
         placeholder="Book title"
         value={title}
@@ -96,7 +96,7 @@ export const SearchBar = () => {
       />
 
       <StyledInput
-        styleType="secondary"
+        styledtype="secondary"
         type="text"
         placeholder="Author"
         value={author}
