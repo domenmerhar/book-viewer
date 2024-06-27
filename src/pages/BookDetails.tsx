@@ -88,7 +88,7 @@ export const BookDetails = () => {
               (status) =>
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 (localBook as any)?.[status] && (
-                  <StatusTag type={status as bookLocationType}>
+                  <StatusTag type={status as bookLocationType} key={status}>
                     {status}
                   </StatusTag>
                 )
