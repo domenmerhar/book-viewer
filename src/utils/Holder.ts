@@ -5,7 +5,7 @@ interface HolderProps {
   height?: string;
   justifycontent?: string;
   align?: string;
-  isColumn?: boolean;
+  column?: boolean;
 }
 
 export const Holder = styled.div<HolderProps>`
@@ -13,7 +13,7 @@ export const Holder = styled.div<HolderProps>`
   ${(props) => props.height && `height: ${props.height};`}
   ${(props) => `justify-content: ${props.justifycontent || "center"};`}
   ${(props) => `align-items: ${props.align || "center"};`}
-  ${(props) => props.isColumn && `flex-direction: column;`}
+  ${(props) => props.column && `flex-direction: column;`}
 
 
   padding: 30px;
