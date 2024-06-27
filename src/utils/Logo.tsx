@@ -3,14 +3,14 @@ import styled from "styled-components";
 
 interface LogoProps {
   fontSize?: string;
-  paddingX?: string;
+  paddingx?: string;
   paddingY?: string;
 }
 
 const StyledLogo = styled.p<LogoProps>`
   font-size: ${(props) => props.fontSize};
 
-  padding: ${(props) => `${props.paddingY} ${props.paddingX}`};
+  padding: ${(props) => `${props.paddingY} ${props.paddingx}`};
 
   font-family: "Pirata one", sans-serif;
   color: white;
@@ -18,11 +18,11 @@ const StyledLogo = styled.p<LogoProps>`
 
 export const Logo: React.FC<LogoProps> = ({
   fontSize = "32px",
-  paddingX = "0px",
+  paddingx = "0px",
   paddingY = "0px",
 }) => {
   return (
-    <StyledLogo fontSize={fontSize} paddingX={paddingX} paddingY={paddingY}>
+    <StyledLogo fontSize={fontSize} paddingx={paddingx} paddingY={paddingY}>
       BookViewer
     </StyledLogo>
   );
