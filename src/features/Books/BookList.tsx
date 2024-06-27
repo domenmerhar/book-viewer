@@ -7,6 +7,8 @@ import { BooksData } from "../../Interface/book";
 import { Heading } from "../../utils/Heading";
 import { useBookList } from "./BookList.hooks";
 import styled from "styled-components";
+import { ErrorBoundary } from "react-error-boundary";
+import { ErrorFallback } from "../../utils/ErrorFallback";
 
 const HeadingHolder = styled.div`
   margin-top: 64px;
@@ -23,19 +25,21 @@ export const BookList = () => {
   const render: () => React.ReactNode[] = () =>
     pages!.map((books: BooksData) =>
       books?.results?.map((book) => (
-        <li key={book.id}>
-          <Card
-            title={book.title}
-            subTitle={book?.authors[0]?.name}
-            imageSource={book.formats["image/jpeg"]}
-            to={`/books/${book.id}&author=${book?.authors[0]?.name}`}
-          />
-        </li>
+        <ErrorBoundary FallbackComponent={ErrorFallback}>
+          <li key={book.id}>
+            <Card
+              title={book.title}
+              subTitle={book?.authors[0]?.name}
+              imageSource={book.formats["image/jpeg"]}
+              to={`/books/${book.id}&author=${book?.authors[0]?.name}`}
+            />
+          </li>
+        </ErrorBoundary>
       ))
     );
 
   return (
-    <>
+    <ErrorBoundary FallbackComponent={ErrorFallback}>
       <List width={300} renderFn={render} />
       <div ref={ref}>
         {!invalidPage ? (
@@ -49,6 +53,6 @@ export const BookList = () => {
           </HeadingHolder>
         )}
       </div>
-    </>
+    </ErrorBoundary>
   );
 };
