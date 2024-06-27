@@ -27,7 +27,7 @@ export const useBooks = () => {
     queryFn: ({ pageParam }: { pageParam: number }) =>
       getBooks({ title, author, sort, page: pageParam }),
     initialPageParam: 1,
-    getNextPageParam: (lastPage) => lastPage.nextPage + 1 || 2,
+    getNextPageParam: (lastPage) => lastPage.next,
   });
 
   return { data, error, isLoading, fetchNextPage };
