@@ -47,6 +47,10 @@ const HeadingHolder = styled.div`
   width: 70%;
 `;
 
+const AuthorHolder = styled.div`
+  margin: 64px 0 16px 0;
+`;
+
 const localBookStatuses = ["wishlist", "reading", "finished"];
 
 export const BookDetails = () => {
@@ -54,6 +58,7 @@ export const BookDetails = () => {
   const { id } = useParams<{ id: string }>();
 
   const idString = id?.split("&")[0];
+  const author = id?.split("=")[1].split(",").join("");
 
   const { getBook } = useYourBooks();
   const localBook = getBook(idString!);
@@ -91,6 +96,10 @@ export const BookDetails = () => {
 
         <BookInfoCard book={book} />
       </Row>
+
+      <AuthorHolder>
+        <Heading type="primary">More from {author}</Heading>
+      </AuthorHolder>
 
       <BookList />
     </>
