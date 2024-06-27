@@ -3,6 +3,8 @@ import { CardSmall } from "./CardSmall";
 import { Book } from "../../Interface/book";
 import { SpinnerBig } from "../../utils/SpinnerBig";
 import { useYourBooksList } from "./YourBooksList.hooks";
+import { ErrorBoundary } from "react-error-boundary";
+import { ErrorFallback } from "../../utils/ErrorFallback";
 
 export const YourBooksList = () => {
   const { isLoading, sortedBooks } = useYourBooksList();
@@ -15,13 +17,15 @@ export const YourBooksList = () => {
       renderFn={() =>
         sortedBooks.map((book: Book) => {
           return (
-            <CardSmall
-              key={book?.id}
-              id={book?.id}
-              image={book?.formats["image/jpeg"]}
-              title={book?.title}
-              author={book?.authors[0].name}
-            />
+            <ErrorBoundary FallbackComponent={ErrorFallback}>
+              <CardSmall
+                key={book?.id}
+                id={book?.id}
+                image={book?.formats["image/jpeg"]}
+                title={book?.title}
+                author={book?.authors[0].name}
+              />
+            </ErrorBoundary>
           );
         })
       }
