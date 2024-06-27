@@ -10,6 +10,8 @@ import { useParams } from "react-router-dom";
 import { bookLocationType, useYourBooks } from "../hooks/useYourBooks";
 import { Heading } from "../utils/Heading";
 import { BookList } from "../features/Books/BookList";
+import { ErrorBoundary } from "react-error-boundary";
+import { ErrorFallback } from "../utils/ErrorFallback";
 
 interface StatusTagProps {
   type: "wishlist" | "reading" | "finished";
@@ -76,7 +78,7 @@ export const BookDetails = () => {
     return <Heading type="primary">No book found</Heading>;
 
   return (
-    <>
+    <ErrorBoundary FallbackComponent={ErrorFallback}>
       <Row gap="16px" justifycontent="space-between">
         <HeadingHolder>
           <HeadingGradient>{book?.title}</HeadingGradient>
@@ -113,6 +115,6 @@ export const BookDetails = () => {
       </AuthorHolder>
 
       <BookList />
-    </>
+    </ErrorBoundary>
   );
 };
