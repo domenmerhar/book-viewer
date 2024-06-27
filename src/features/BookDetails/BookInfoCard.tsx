@@ -51,7 +51,7 @@ export const BookInfoCard: React.FC<BookInfoCardProps> = ({ book }) => {
   const { handleChange, handleClick, defaultValue } = useBookInfoCard({ book });
 
   return (
-    <Holder justifycontent="space-between" align="flex-start" isColumn={true}>
+    <Holder justifycontent="space-between" align="flex-start" column={true}>
       <div>
         <Column gap="16px">
           <span>
