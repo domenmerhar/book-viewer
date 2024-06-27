@@ -5,6 +5,7 @@ import React, {
   cloneElement,
   useEffect,
   useCallback,
+  LegacyRef,
 } from "react";
 import styled from "styled-components";
 import { useOutsideClick } from "../hooks/useOutsideClick";
@@ -39,8 +40,6 @@ export const ExpandingList = ({ children }: ChildrenProps) => {
   const close = useCallback(() => setIsOpen(false), [setIsOpen]);
 
   useEffect(() => {
-    console.log("effect");
-
     document.addEventListener("scroll", close);
 
     return () => {
@@ -104,7 +103,7 @@ const List: React.FC<ButtonProps> = ({ children }) => {
   if (!isOpen) return null;
 
   return (
-    <Div x={position.x} y={position.y} ref={ref}>
+    <Div x={position.x} y={position.y} ref={ref as LegacyRef<HTMLDivElement>}>
       {cloneElement(children as React.ReactElement, { listClick })}
     </Div>
   );
