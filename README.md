@@ -1,30 +1,31 @@
-# React + TypeScript + Vite
+# Book Viewer - Online Book Library App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Description
 
-Currently, two official plugins are available:
+Book Viewer is an online book library app that provides access to a vast collection of books. Users can browse through various categories and genres, search for specific books, and create their personalized library of favorite reads.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## Expanding the ESLint configuration
+1. **Save and Download Functionality**: Allows users to save books to their library for future reading and download them for offline access.
+2. **Search and Filter Options**: Enables users to search for specific books and filter results based on author, genre, or keywords.
+3. **Personalized Library**: Lets users create their library of favorite books, organize them into collections, and easily access them whenever they want.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## APIs Used
 
-- Configure the top-level `parserOptions` property like this:
+- **[Gutendex](https://gutendex.com/)**: JSON web API used for fetching book data.
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+## Technologies Used
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+- **React, React-DOM***: JavaScript libraries for building user interfaces.
+- **React-Error-Boundary**: React library used for error handling.
+- **React-Hot-Toast**: Easy and customizable toasts for React.
+- **React-Icons**: Popular icons for React projects.
+- **React-Intersection-Observer**: Intersection Observer API wrapper used for infinite loading.
+- **React-Router-DOM**: Declarative routing for React applications.
+- **Styled-Components**: JavaScript library used for writing CSS in React.
+- **Typescript**: A strict syntactical superset of JavaScript that adds optional static typing.
+- **React Query**: Data fetching and caching library for React.
+
+## How to Use
+
+Simply visit the following link: [Book Viewer](domen-merhar-book-viewer.netlify.app)
