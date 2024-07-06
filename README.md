@@ -28,4 +28,4 @@ Book Viewer is an online book library app that provides access to a vast collect
 
 ## How to Use
 
-Simply visit the following link: [Book Viewer](https://domen-merhar-book-viewer.netlify.app/books)
+Simply visit the following link: [Book Viewer](https://domen-merhar-book-viewer.netlify.app)
