@@ -22,10 +22,10 @@ const StyledCard = styled(NavLink)`
   padding: 30px 0;
   height: 100%;
 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 16px;
+  display: grid;
+  grid-template-rows: minmax(300px, min-content);
+  justify-items: center;
+  row-gap: 16px;
 
   background-color: var(--gray-1);
 
