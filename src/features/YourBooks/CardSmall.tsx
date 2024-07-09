@@ -21,6 +21,7 @@ interface CardSmallProps {
 
 const Image = styled.img`
   width: 150px;
+  max-height: 300px;
 
   transition: all 200ms;
 
@@ -34,11 +35,6 @@ const InfoWrapper = styled.div`
   margin-top: 4px;
 `;
 
-const Placeholder = styled.div`
-  width: 150px;
-  height: 250px;
-`;
-
 export const CardSmall: React.FC<CardSmallProps> = ({
   id,
   image,
@@ -50,7 +46,7 @@ export const CardSmall: React.FC<CardSmallProps> = ({
       <Holder width="415px">
         <Row gap="16px">
           <NavLink to={`/books/${id}&author=${author}`}>
-            {image ? <Image src={image} alt={title} /> : <Placeholder />}
+            <Image src={image ? image : "/no-image.png"} alt={title} />
           </NavLink>
           <InfoWrapper>
             <Column gap="8px">
