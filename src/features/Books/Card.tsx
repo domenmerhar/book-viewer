@@ -74,7 +74,7 @@ export const Card: React.FC<CardProps> = ({
   return (
     <StyledCard to={to}>
       <ImageHolder>
-        <StyledImage src={imageSource ? imageSource : "./no-image.png"} />
+        <StyledImage src={imageSource ? imageSource : "/no-image.png"} />
       </ImageHolder>
 
       <Titles>
