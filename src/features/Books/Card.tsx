@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Heading } from "../../utils/Heading";
 import { NavLink } from "react-router-dom";
+import { TITLE_LENGTH } from "../../api/config";
 
 interface CardProps {
   imageSource?: string;
@@ -82,7 +83,9 @@ export const Card: React.FC<CardProps> = ({
 
       <Titles>
         <Heading as="h1" type="primary">
-          {title}
+          {title.length >= TITLE_LENGTH
+            ? title.slice(0, TITLE_LENGTH) + "..."
+            : title}
         </Heading>
         <Heading as="h2" type="secondary">
           {subTitle}
