@@ -39,6 +39,7 @@ const StatusTag = styled.span<StatusTagProps>`
 
 const Image = styled.img`
   width: 300px;
+  max-width: 400px;
 `;
 
 const TagHolder = styled.div`
@@ -51,11 +52,6 @@ const HeadingHolder = styled.div`
 
 const AuthorHolder = styled.div`
   margin: 48px 0 16px 0;
-`;
-
-const ImageHolder = styled.div`
-  height: 450px;
-  width: 300px;
 `;
 
 const localBookStatuses = ["wishlist", "reading", "finished"];
@@ -100,11 +96,14 @@ export const BookDetails = () => {
       </Row>
       <Row gap="64px" justifycontent="space-around">
         <Holder>
-          {book?.formats["image/jpeg"] ? (
-            <Image src={book?.formats["image/jpeg"]} alt={book?.title} />
-          ) : (
-            <ImageHolder />
-          )}
+          <Image
+            src={
+              book?.formats["image/jpeg"]
+                ? book?.formats["image/jpeg"]
+                : "/no-image.png"
+            }
+            alt={book?.title}
+          />
         </Holder>
 
         <BookInfoCard book={book} />
