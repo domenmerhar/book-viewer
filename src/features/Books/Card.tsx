@@ -60,11 +60,6 @@ const Titles = styled.div`
   width: 200px;
 `;
 
-const ImagePlaceholder = styled.div`
-  width: 200px;
-  height: 300px;
-`;
-
 export const Card: React.FC<CardProps> = ({
   imageSource = "",
   title = "",
@@ -74,11 +69,7 @@ export const Card: React.FC<CardProps> = ({
   return (
     <StyledCard to={to}>
       <ImageHolder>
-        {imageSource ? (
-          <StyledImage src={imageSource} alt={title} />
-        ) : (
-          <ImagePlaceholder />
-        )}
+        <StyledImage src={imageSource ? imageSource : "./no-image.png"} />
       </ImageHolder>
 
       <Titles>
