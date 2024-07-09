@@ -44,6 +44,7 @@ const StyledCard = styled(NavLink)`
 const ImageHolder = styled.div`
   width: 200px;
   overflow: hidden;
+  max-height: 400px;
 `;
 
 const StyledImage = styled.img`
