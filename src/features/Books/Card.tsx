@@ -47,6 +47,10 @@ const ImageHolder = styled.div`
   width: 200px;
   overflow: hidden;
   max-height: 400px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const StyledImage = styled.img`
