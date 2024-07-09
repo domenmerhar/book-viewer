@@ -9,6 +9,8 @@ import { ButtonSquare } from "../../utils/ButtonSquare";
 import { HiOutlineDotsVertical } from "react-icons/hi";
 import { DropDownList } from "./DropDownList";
 import { NavLink } from "react-router-dom";
+import { shortenString } from "../../utils/shortenString";
+import { TITLE_LENGTH } from "../../api/config";
 
 interface CardSmallProps {
   id: number;
@@ -52,7 +54,9 @@ export const CardSmall: React.FC<CardSmallProps> = ({
           </NavLink>
           <InfoWrapper>
             <Column gap="8px">
-              <Heading type="primary">{title}</Heading>
+              <Heading type="primary">
+                {shortenString(title, TITLE_LENGTH)}
+              </Heading>
               <Heading type="secondary">{author}</Heading>
             </Column>
           </InfoWrapper>

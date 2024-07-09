@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Heading } from "../../utils/Heading";
 import { NavLink } from "react-router-dom";
+import { shortenString } from "../../utils/shortenString";
 import { TITLE_LENGTH } from "../../api/config";
 
 interface CardProps {
@@ -74,9 +75,7 @@ export const Card: React.FC<CardProps> = ({
 
       <Titles>
         <Heading as="h1" type="primary">
-          {title.length >= TITLE_LENGTH
-            ? title.slice(0, TITLE_LENGTH) + "..."
-            : title}
+          {shortenString(title, TITLE_LENGTH)}
         </Heading>
         <Heading as="h2" type="secondary">
           {subTitle}
